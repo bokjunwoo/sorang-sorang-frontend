@@ -15,6 +15,7 @@ const config: Config = {
           white: "#F8FEFF",
           black: "#3C3C3C",
           gray: "#5C5C5C",
+          gray1: "#848484",
           primary1: "#FF9553",
           primary2: "#FA8339",
           primary3: "#E46719",
@@ -40,7 +41,12 @@ const config: Config = {
           letterSpacing: '-0.02em',
           fontWeight: '500',
         }],
-        'pretendard-l': ['28px', {
+        'pretendard-l': ['24px', {
+          lineHeight: '38px',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'pretendard-xl': ['28px', {
           lineHeight: '40px',
           letterSpacing: '-0.02em',
           fontWeight: '700',

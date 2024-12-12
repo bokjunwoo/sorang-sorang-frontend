@@ -8,6 +8,10 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {REGION_KEYWORDS} from "@/config/keywords";
 import {RegionType} from "@/types/master";
+import ProgressBar from "@/components/master/ProgressBar";
+import {Button} from "@/components/common/Button";
+import Input from "@/components/common/Input";
+import {cn} from "@/lib/utils/cn";
 
 const nameSchema = z.object({
     name: z.string().min(1, '이름을 입력해주세요')
@@ -15,6 +19,20 @@ const nameSchema = z.object({
 
 const genderSchema = z.object({
     gender: z.enum(['할머니', '할아버지'], { required_error: '성별을 선택해주세요' }),
+});
+
+const numberSchema = z.object({
+    number: z
+        .string()
+        .min(1, '전화번호를 입력해주세요')
+        .regex(
+            /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+            '올바른 전화번호 형식이 아닙니다'
+        )
+        .transform((val) => {
+            const cleaned = val.replace(/-/g, '');
+            return cleaned.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
+        })
 });
 
 const regionSchema = z.object({
@@ -45,6 +63,13 @@ export default function MasterInfoForm() {
         }
     })
 
+    const numberForm = useForm({
+        resolver: zodResolver(numberSchema),
+        defaultValues: {
+            number: masterInfo.number
+        }
+    });
+
     const regionForm = useForm({
         resolver: zodResolver(regionSchema),
         defaultValues: {
@@ -69,9 +94,14 @@ export default function MasterInfoForm() {
         setStep(3);
     })
 
+    const onNumberSubmit = numberForm.handleSubmit((data) => {
+        setMasterInfo({ ...masterInfo, number: data.number });
+        setStep(4);
+    })
+
     const onRegionSubmit = regionForm.handleSubmit((data) => {
         setMasterInfo({ ...masterInfo, region: data.region });
-        setStep(4);
+        setStep(5);
     });
 
     const onKeywordSubmit = keywordForm.handleSubmit((data) => {
@@ -79,150 +109,218 @@ export default function MasterInfoForm() {
         router.push('/master/speech');
     });
 
+    const formatPhoneNumber = (value: string) => {
+        if (!value) return value;
+        const phoneNumber = value.replace(/[^\d]/g, '');
+        if (phoneNumber.length < 4) return phoneNumber;
+        if (phoneNumber.length < 7) {
+            return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
+        }
+        return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
+    };
+
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const formattedNumber = formatPhoneNumber(e.target.value);
+        if (formattedNumber.length <= 13) {
+            numberForm.setValue('number', formattedNumber);
+        }
+    };
+
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col">
-            <div className="fixed top-0 left-0 right-0 h-1 bg-gray-200">
-                <div
-                    className="h-full bg-blue-500 transition-all duration-300"
-                    style={{width: `${(step / 4) * 100}%`}}
-                />
+        <div className="min-h-screen h-screen flex flex-col">
+            <div className="pt-[14px]">
+                <ProgressBar currentStep={step} totalSteps={5} />
             </div>
 
-            <div className="flex-1 p-6 flex flex-col justify-center text-gray-700">
-                <div className="max-w-md mx-auto w-full bg-white rounded-xl shadow-lg p-6">
-                    {step === 1 && (
-                        <form onSubmit={onNameSubmit} className="space-y-4">
-                            <h1 className="text-2xl font-bold text-center mb-8">
-                                이름을 입력해주세요
+            <div className="flex-1 flex flex-col pt-[72px] relative h-full">
+                {step === 1 && (
+                    <div className="flex flex-col items-center h-full">
+                        <form onSubmit={onNameSubmit} className="flex flex-col items-center w-full h-full max-w-[360px] gap-4">
+                            <h1 className="text-2xl font-bold text-center text-brand-black text-mb-8 font-pretendard text-pretendard-xl">
+                                안녕하세요!<br/>
+                                성함이 어떻게 되시나요?
                             </h1>
-                            <input
-                                {...nameForm.register('name')}
-                                className="w-full p-4 text-lg border rounded-lg border-gray-300
-                                focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                                placeholder="이름"
-                                autoFocus
-                            />
-                            {nameForm.formState.errors.name && (
-                                <p className="text-red-500 text-sm">
-                                    {nameForm.formState.errors.name.message}
-                                </p>
-                            )}
-                            <button
-                                type="submit"
-                                className="w-full p-4 rounded-lg bg-blue-500 text-white
-                                hover:bg-blue-600 text-lg"
-                            >
-                                확인
-                            </button>
+                            <div className="text-brand-black pt-[74px]">
+                                <Input
+                                    register={nameForm.register('name')}
+                                    error={nameForm.formState.errors.name?.message}
+                                    placeholder="이름"
+                                    autoFocus
+                                />
+                            </div>
+                            <div className="mt-auto mb-[56px]">
+                                <Button
+                                    variant={nameForm.watch('name') ? 'master' : 'master_disabled'}
+                                    disabled={!nameForm.watch('name')}
+                                >
+                                    다음
+                                </Button>
+                            </div>
                         </form>
-                    )}
+                    </div>
+                )}
 
-                    {step === 2 && (
-                        <form onSubmit={onGenderSubmit} className="space-y-4">
-                            <h1 className="text-2xl font-bold text-center mb-8">
-                                성별을 선택해주세요
+                {step === 2 && (
+                    <div className="flex flex-col items-center h-full">
+                        <form onSubmit={onGenderSubmit}
+                              className="flex flex-col items-center w-full h-full max-w-[360px] gap-4">
+                            <h1 className="text-2xl font-bold text-center text-brand-black text-mb-8 font-pretendard text-pretendard-xl">
+                                {masterInfo.name} 어르신,<br/>
+                                성별은 어떻게 되시나요?
                             </h1>
-                            <div className="grid grid-cols-2 gap-4">
-                                <button
+                            <div className="font-pretendard text-pretendard-l pt-[74px] flex gap-[16px]">
+                            <button
                                     type="button"
                                     onClick={() => genderForm.setValue('gender', '할아버지')}
-                                    className={`p-4 rounded-lg text-lg ${
+                                    className={cn(
+                                        "w-[152px] h-[152px] rounded-2xl",
+                                        "font-pretendard text-pretendard-l",
+                                        "transition-all duration-200",
                                         genderForm.watch('gender') === '할아버지'
-                                            ? 'bg-blue-500 text-white'
-                                            : 'bg-gray-100 text-gray-700'
-                                    }`}
+                                            ? "bg-brand-primary2 text-white"
+                                            : "bg-white/90 text-brand-black"
+                                    )}
                                 >
-                                    할아버지
+                                    남성
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => genderForm.setValue('gender', '할머니')}
-                                    className={`p-4 rounded-lg text-lg ${
+                                    className={cn(
+                                        "w-[152px] h-[152px] rounded-2xl",
+                                        "font-pretendard text-pretendard-l",
+                                        "transition-all duration-200",
                                         genderForm.watch('gender') === '할머니'
-                                            ? 'bg-blue-500 text-white'
-                                            : 'bg-gray-100 text-gray-700'
-                                    }`}
+                                            ? "bg-brand-primary2 border-brand-primary3 border-2 text-white font-bold"
+                                            : "bg-white/90 text-brand-black"
+                                    )}
                                 >
-                                    할머니
+                                    여성
                                 </button>
                             </div>
-                            {genderForm.formState.errors.gender && (
-                                <p className="text-red-500 text-sm">
-                                    {genderForm.formState.errors.gender.message}
-                                </p>
-                            )}
-                            <button
-                                type="submit"
-                                className="w-full p-4 rounded-lg bg-blue-500 text-white
-                                hover:bg-blue-600 text-lg"
-                            >
-                                확인
-                            </button>
+                            <div className="mt-auto mb-[56px]">
+                                <Button
+                                    variant={genderForm.watch('gender') ? 'master' : 'master_disabled'}
+                                    disabled={!genderForm.watch('gender')}
+                                >
+                                    다음
+                                </Button>
+                            </div>
                         </form>
-                    )}
+                    </div>
+                )}
 
-                    {step === 3 && (
-                        <form onSubmit={onRegionSubmit} className="space-y-4">
-                            <h1 className="text-2xl font-bold text-center mb-8">
-                                지역을 선택해주세요
+                {step === 3 && (
+                    <div className="flex flex-col items-center h-full">
+                        <form onSubmit={onNumberSubmit} className="flex flex-col items-center w-full h-full max-w-[360px] gap-4">
+                            <h1 className="text-2xl font-bold text-center text-brand-black text-mb-8 font-pretendard text-pretendard-xl">
+                                시작하기 전에,<br/>
+                                전화번호를 입력해주세요
                             </h1>
-                            <select
-                                {...regionForm.register('region')}
-                                className="w-full p-4 text-lg border rounded-lg border-gray-300
-                                focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
-                                autoFocus
-                            >
-                                <option value="">지역을 선택해주세요</option>
+                            <div className="text-brand-black pt-[74px]">
+                                <Input
+                                    register={numberForm.register('number')}
+                                    type="tel"
+                                    inputMode="numeric"
+                                    onChange={(e) => {
+                                        numberForm.register('number').onChange(e);
+                                        handlePhoneChange(e);
+                                    }}
+                                    error={numberForm.formState.errors.number?.message}
+                                    placeholder="010-1234-5678"
+                                    autoFocus
+                                />
+                            </div>
+                            <div className="mt-auto mb-[56px]">
+                                <Button
+                                    variant={numberForm.watch('number') ? 'master' : 'master_disabled'}
+                                    disabled={!numberForm.watch('number')}
+                                >
+                                    다음
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+
+                {step === 4 && (
+                    <div className="flex flex-col items-center h-full">
+                        <form onSubmit={onRegionSubmit}
+                              className="flex flex-col items-center w-full h-full max-w-[360px] gap-4">
+                            <h1 className="text-2xl font-bold text-center text-brand-black text-mb-8 font-pretendard text-pretendard-xl">
+                                어디 지역에<br/>
+                                거주하고 계신가요?
+                            </h1>
+                            <div className="font-pretendard text-pretendard-m pt-[40px] grid grid-cols-3 gap-y-[20px] gap-x-[12px]">
                                 {Object.keys(REGION_KEYWORDS).map((region) => (
-                                    <option key={region} value={region}>{region}</option>
+                                    <button
+                                        key={region}
+                                        type="button"
+                                        onClick={() => regionForm.setValue('region', region as RegionType)}
+                                        className={cn(
+                                            "w-[96px] h-[56px] rounded-2xl",
+                                            "font-pretendard text-pretendard-m",
+                                            "transition-all duration-200",
+                                            regionForm.watch('region') === region
+                                                ? "bg-brand-primary2 border-brand-primary3 border-2 text-white font-bold"
+                                                : "bg-white/90 text-brand-black"
+                                        )}
+                                    >
+                                        {region}
+                                    </button>
                                 ))}
-                            </select>
-                            {regionForm.formState.errors.region && (
-                                <p className="text-red-500 text-sm">
-                                    {regionForm.formState.errors.region.message}
-                                </p>
-                            )}
-                            <button
-                                type="submit"
-                                className="w-full p-4 rounded-lg bg-blue-500 text-white
-                                hover:bg-blue-600 text-lg"
-                            >
-                                확인
-                            </button>
+                            </div>
+                            <div className="mt-auto mb-[56px]">
+                                <Button
+                                    variant={regionForm.watch('region') ? 'master' : 'master_disabled'}
+                                    disabled={!regionForm.watch('region')}
+                                >
+                                    다음
+                                </Button>
+                            </div>
                         </form>
-                    )}
+                    </div>
+                )}
 
-                    {step === 4 && (
-                        <form onSubmit={onKeywordSubmit} className="space-y-4">
-                            <h1 className="text-2xl font-bold text-center mb-8">
-                                키워드를 선택해주세요
+                {step === 5 && (
+                    <div className="flex flex-col items-center h-full">
+                        <form onSubmit={onKeywordSubmit}
+                              className="flex flex-col items-center w-full h-full max-w-[360px] gap-4">
+                            <h1 className="text-2xl font-bold text-center text-brand-black text-mb-8 font-pretendard text-pretendard-xl">
+                                어떤 이야기를<br/>
+                                들려주고 싶으신가요?
                             </h1>
-                            <select
-                                {...keywordForm.register('keyword')}
-                                className="w-full p-4 text-lg border rounded-lg border-gray-300
-                                focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white"
-                                autoFocus
-                            >
-                                <option value="">키워드를 선택해주세요</option>
+                            <div
+                                className="font-pretendard text-pretendard-m pt-[40px] grid grid-cols-1 gap-y-[20px] gap-x-[12px]">
                                 {REGION_KEYWORDS[masterInfo.region as RegionType]?.map((keyword) => (
-                                    <option key={keyword} value={keyword}>{keyword}</option>
+                                    <button
+                                        key={keyword}
+                                        type="button"
+                                        onClick={() => keywordForm.setValue('keyword', keyword)}
+                                        className={cn(
+                                            "w-[320px] h-[56px] rounded-2xl",
+                                            "font-pretendard text-pretendard-m",
+                                            "transition-all duration-200",
+                                            keywordForm.watch('keyword') === keyword
+                                                ? "bg-brand-primary2 border-brand-primary3 border-2 text-white font-bold"
+                                                : "bg-white/90 text-brand-black"
+                                        )}
+                                    >
+                                        {keyword}
+                                    </button>
                                 ))}
-                            </select>
-                            {keywordForm.formState.errors.keyword && (
-                                <p className="text-red-500 text-sm">
-                                    {keywordForm.formState.errors.keyword.message}
-                                </p>
-                            )}
-                            <button
-                                type="submit"
-                                className="w-full p-4 rounded-lg bg-blue-500 text-white
-                                hover:bg-blue-600 text-lg"
-                            >
-                                시작하기
-                            </button>
+                            </div>
+                            <div className="mt-auto mb-[56px]">
+                                <Button
+                                    variant={keywordForm.watch('keyword') ? 'master' : 'master_disabled'}
+                                    disabled={!keywordForm.watch('keyword')}
+                                >
+                                    다음
+                                </Button>
+                            </div>
                         </form>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
         </div>
     )
