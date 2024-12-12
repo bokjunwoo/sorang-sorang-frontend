@@ -1,8 +1,28 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Pretendard 텍스트 스타일 */
+  --text-pretendard-s: 14px;
+  --text-pretendard-m: 18px;
+  --text-pretendard-l: 28px;
+
+  /* 학교안심 텍스트 스타일 */
+  --text-hakgyo-s: 12px;
+  --text-hakgyo-m: 16px;
+  --text-hakgyo-l: 20px;
+
+  /* 행간 */
+  --leading-pretendard-s: 22px;
+  --leading-pretendard-m: 30px;
+  --leading-pretendard-l: 40px;
+  --leading-hakgyo-s: 22px;
+  --leading-hakgyo-m: 22px;
+  --leading-hakgyo-l: 28px;
+
   --background: #ffffff;
   --foreground: #171717;
 }

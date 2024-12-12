@@ -12,6 +12,10 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const hakgyo = localFont({
+  src: './fonts/Hakgyoansim.otf',
+  variable: '--font-hakgyo'
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${hakgyo.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>

@@ -1,29 +1,12 @@
-'use client'
-
-import { useState, useEffect } from 'react'
+import GetButton from './test/GetButton';
+import PostButton from './test/PostButton';
 
 export default function Home() {
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch('http://localhost:8080/api/hello')
-        .then(res => res.text())
-        .then(data => {
-          setMessage(data)
-          setLoading(false)
-        })
-        .catch(err => {
-          console.error(err)
-          setLoading(false)
-        })
-  }, [])
-
-  if (loading) return <div>Loading...</div>
-
   return (
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold">{message}</h1>
-      </main>
-  )
+    <main className='flex min-h-screen flex-col items-center justify-center'>
+      <GetButton />
+      <PostButton />
+      <div className='font-hakgyo text-hakgyo-s'>12px 학교 폰트 테스트</div>
+    </main>
+  );
 }
