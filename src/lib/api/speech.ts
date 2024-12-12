@@ -1,6 +1,6 @@
 import {UploadResponse} from "@/types/api";
 
-export const uploadAudio = async (formData: FormData): Promise<UploadResponse> => {
+export const uploadSpeech = async (formData: FormData): Promise<UploadResponse> => {
     const response = await fetch('/api/speech', {
         method: 'POST',
         body: formData,

@@ -13,6 +13,10 @@ const nameSchema = z.object({
     name: z.string().min(1, '이름을 입력해주세요')
 });
 
+const genderSchema = z.object({
+    gender: z.enum(['할머니', '할아버지'], { required_error: '성별을 선택해주세요' }),
+});
+
 const regionSchema = z.object({
     region: z.string().min(1, '지역을 선택해주세요')
 });
@@ -34,6 +38,13 @@ export default function MasterInfoForm() {
         }
     });
 
+    const genderForm = useForm({
+        resolver: zodResolver(genderSchema),
+        defaultValues: {
+            gender: masterInfo.gender
+        }
+    })
+
     const regionForm = useForm({
         resolver: zodResolver(regionSchema),
         defaultValues: {
@@ -53,9 +64,14 @@ export default function MasterInfoForm() {
         setStep(2);
     });
 
+    const onGenderSubmit = genderForm.handleSubmit((data) => {
+        setMasterInfo({ ...masterInfo, gender: data.gender });
+        setStep(3);
+    })
+
     const onRegionSubmit = regionForm.handleSubmit((data) => {
         setMasterInfo({ ...masterInfo, region: data.region });
-        setStep(3);
+        setStep(4);
     });
 
     const onKeywordSubmit = keywordForm.handleSubmit((data) => {
@@ -68,7 +84,7 @@ export default function MasterInfoForm() {
             <div className="fixed top-0 left-0 right-0 h-1 bg-gray-200">
                 <div
                     className="h-full bg-blue-500 transition-all duration-300"
-                    style={{width: `${(step / 3) * 100}%`}}
+                    style={{width: `${(step / 4) * 100}%`}}
                 />
             </div>
 
@@ -102,6 +118,50 @@ export default function MasterInfoForm() {
                     )}
 
                     {step === 2 && (
+                        <form onSubmit={onGenderSubmit} className="space-y-4">
+                            <h1 className="text-2xl font-bold text-center mb-8">
+                                성별을 선택해주세요
+                            </h1>
+                            <div className="grid grid-cols-2 gap-4">
+                                <button
+                                    type="button"
+                                    onClick={() => genderForm.setValue('gender', '할아버지')}
+                                    className={`p-4 rounded-lg text-lg ${
+                                        genderForm.watch('gender') === '할아버지'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'bg-gray-100 text-gray-700'
+                                    }`}
+                                >
+                                    할아버지
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => genderForm.setValue('gender', '할머니')}
+                                    className={`p-4 rounded-lg text-lg ${
+                                        genderForm.watch('gender') === '할머니'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'bg-gray-100 text-gray-700'
+                                    }`}
+                                >
+                                    할머니
+                                </button>
+                            </div>
+                            {genderForm.formState.errors.gender && (
+                                <p className="text-red-500 text-sm">
+                                    {genderForm.formState.errors.gender.message}
+                                </p>
+                            )}
+                            <button
+                                type="submit"
+                                className="w-full p-4 rounded-lg bg-blue-500 text-white
+                                hover:bg-blue-600 text-lg"
+                            >
+                                확인
+                            </button>
+                        </form>
+                    )}
+
+                    {step === 3 && (
                         <form onSubmit={onRegionSubmit} className="space-y-4">
                             <h1 className="text-2xl font-bold text-center mb-8">
                                 지역을 선택해주세요
@@ -132,7 +192,7 @@ export default function MasterInfoForm() {
                         </form>
                     )}
 
-                    {step === 3 && (
+                    {step === 4 && (
                         <form onSubmit={onKeywordSubmit} className="space-y-4">
                             <h1 className="text-2xl font-bold text-center mb-8">
                                 키워드를 선택해주세요

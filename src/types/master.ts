@@ -11,6 +11,7 @@ export interface MasterInfo {
     name: string;
     region: RegionType | '';
     keyword: string;
+    gender: '할머니' | '할아버지' | '';
 }
 
 export type RegionType = typeof REGIONS[number];
