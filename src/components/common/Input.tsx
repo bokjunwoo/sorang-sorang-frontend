@@ -19,7 +19,7 @@ export const Input = ({
         "bg-brand-white/90",
         "px-[30px] py-[30px]",
         "border border-transparent",
-        "text-brand-black text-center",
+        "text-center",
         "placeholder:text-brand-gray",
         "font-pretendard text-pretendard-l",
         "focus:outline-none focus:ring-2 focus:ring-brand-primary2",
