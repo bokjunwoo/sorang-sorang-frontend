@@ -10,7 +10,7 @@ export default function MasterPage() {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="flex items-center justify-center min-h-screen">
             <button
                 onClick={handleClick}
                 className="w-full mx-8 p-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600 text-lg"
