@@ -168,7 +168,6 @@ export default function VoiceRecorder() {
                                         <div className="space-y-6">
                                             {/* Region-based Item Image */}
                                             <div className="flex justify-center">
-                                                <div className="absolute w-28 h-28 rounded-full bg-brand-bg1"/>
                                                 <div className="relative w-28 h-28">
                                                     <Image
                                                         src={`/items/${masterInfo.region}.svg`}
