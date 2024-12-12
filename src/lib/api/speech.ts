@@ -1,12 +1,12 @@
 import {UploadResponse} from "@/types/api";
 
-export const uploadAudio = async (audioBlob: Blob): Promise<UploadResponse> => {
-    const formData = new FormData();
-    formData.append('audio', audioBlob, 'recording.webm');
-
+export const uploadAudio = async (formData: FormData): Promise<UploadResponse> => {
     const response = await fetch('/api/speech', {
         method: 'POST',
         body: formData,
+        headers: {
+            'Accept': 'application/json',
+        },
     });
 
     if (!response.ok) throw new Error('음성 파일 업로드 실패');

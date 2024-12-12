@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { AudioData, UploadStatus } from "@/types/master";
 import { Mic, Square, RotateCcw } from 'lucide-react';
 import { uploadAudio } from "@/lib/api/speech";
+import {masterStore} from "@/store/master";
 
 export default function VoiceRecorder() {
+    const masterInfo = masterStore(state => state.masterInfo);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [audioData, setAudioData] = useState<AudioData | null>(null);
     const [recordingTime, setRecordingTime] = useState<number>(0);
@@ -104,7 +106,13 @@ export default function VoiceRecorder() {
 
         setUploadStatus('uploading');
         try {
-            await uploadAudio(audioData.blob);
+            const formData = new FormData();
+            formData.append('audio', audioData.blob);
+            formData.append('name', masterInfo.name);
+            formData.append('region', masterInfo.region);
+            formData.append('keyword', masterInfo.keyword);
+
+            await uploadAudio(formData);
             setUploadStatus('success');
         } catch {
             setUploadStatus('failed');
