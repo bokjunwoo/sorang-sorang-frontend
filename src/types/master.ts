@@ -27,4 +27,5 @@ export interface SpeechData {
     audioUrl: string;
     transcription?: string;
     summary?: string;
+    title?: string;
 }
