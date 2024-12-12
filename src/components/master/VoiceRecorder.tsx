@@ -113,6 +113,7 @@ export default function VoiceRecorder() {
             const formData = new FormData();
             formData.append('name', masterInfo.name);
             formData.append('gender', masterInfo.gender);
+            formData.append('number', masterInfo.number);
             formData.append('region', masterInfo.region);
             formData.append('keyword', masterInfo.keyword);
             formData.append('audio', audioData.blob);

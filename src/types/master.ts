@@ -9,9 +9,10 @@ export type UploadStatus = 'idle' | 'uploading' | 'success' | 'failed';
 
 export interface MasterInfo {
     name: string;
+    gender: '할머니' | '할아버지' | '';
+    number: string;
     region: RegionType | '';
     keyword: string;
-    gender: '할머니' | '할아버지' | '';
 }
 
 export type RegionType = typeof REGIONS[number];
