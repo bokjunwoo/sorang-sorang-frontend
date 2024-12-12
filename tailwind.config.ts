@@ -40,7 +40,12 @@ const config: Config = {
           letterSpacing: '-0.02em',
           fontWeight: '500',
         }],
-        'pretendard-l': ['28px', {
+        'pretendard-l': ['24px', {
+          lineHeight: '38px',
+          letterSpacing: '-0.02em',
+          fontWeight: '700',
+        }],
+        'pretendard-xl': ['28px', {
           lineHeight: '40px',
           letterSpacing: '-0.02em',
           fontWeight: '700',
