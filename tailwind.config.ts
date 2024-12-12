@@ -15,8 +15,6 @@ const config: Config = {
           white: "#F8FEFF",
           black: "#3C3C3C",
           gray: "#5C5C5C",
-          0: "#FFFFFF",
-          1: "#000000",
           primary1: "#FF9553",
           primary2: "#FA8339",
           primary3: "#E46719",
@@ -28,7 +26,7 @@ const config: Config = {
 
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
-        hakgyo: ['HakgyoansimWoojuR', 'serif'],
+        hakgyo: ['var(--font-hakgyo)'],
       },
 
       fontSize: {
