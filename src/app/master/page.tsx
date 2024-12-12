@@ -1,6 +1,7 @@
 'use client'
 
 import {useRouter} from "next/navigation";
+import {Button} from "@/components/common/Button";
 
 export default function MasterPage() {
     const router = useRouter();
@@ -11,12 +12,13 @@ export default function MasterPage() {
 
     return (
         <div className="flex items-center justify-center min-h-screen">
-            <button
+            <Button
                 onClick={handleClick}
-                className="w-full mx-8 p-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600 text-lg"
+                variant='master'
+                className="w-full mt-[610px]"
             >
                 시작하기
-            </button>
+            </Button>
         </div>
     )
 }
