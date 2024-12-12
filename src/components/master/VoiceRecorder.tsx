@@ -1,14 +1,16 @@
 'use client'
 
-import {useEffect, useRef, useState} from "react";
-import {AudioData} from "@/types/master";
+import { useEffect, useRef, useState } from "react";
+import { AudioData, UploadStatus } from "@/types/master";
 import { Mic, Square, RotateCcw } from 'lucide-react';
+import { uploadAudio } from "@/lib/api/speech";
 
 export default function VoiceRecorder() {
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [audioData, setAudioData] = useState<AudioData | null>(null);
     const [recordingTime, setRecordingTime] = useState<number>(0);
     const [error, setError] = useState<string>("");
+    const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle');
 
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
@@ -97,6 +99,31 @@ export default function VoiceRecorder() {
         setError("");
     };
 
+    const handleUpload = async () => {
+        if (!audioData?.blob) return;
+
+        setUploadStatus('uploading');
+        try {
+            await uploadAudio(audioData.blob);
+            setUploadStatus('success');
+        } catch {
+            setUploadStatus('failed');
+        }
+    };
+
+    const getButtonText = (status: UploadStatus) => {
+        switch (status) {
+            case 'uploading':
+                return '전송 중...';
+            case 'success':
+                return '전송 완료';
+            case 'failed':
+                return '전송 실패';
+            default:
+                return '전송하기';
+        }
+    };
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
             <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 space-y-6">
@@ -149,10 +176,25 @@ export default function VoiceRecorder() {
                         />
                         <button
                             onClick={resetRecording}
-                            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                            className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gray-600 rounded-lg hover:bg-gray-800 transition-colors"
                         >
                             <RotateCcw className="w-5 h-5"/>
                             <span>다시 녹음하기</span>
+                        </button>
+                        <button
+                            onClick={handleUpload}
+                            disabled={uploadStatus === 'uploading' || uploadStatus === 'success'}
+                            className={`w-full flex items-center justify-center space-x-2 px-4 py-3 rounded-lg transition-colors
+                                ${uploadStatus === 'uploading'
+                                    ? 'bg-gray-300 cursor-not-allowed'
+                                    : uploadStatus === 'success'
+                                    ? 'bg-green-500'
+                                    : uploadStatus === 'failed'
+                                    ? 'bg-red-500 hover:bg-red-600'
+                                    : 'bg-blue-500 hover:bg-blue-600'
+                                } text-white`}
+                        >
+                            {getButtonText(uploadStatus)}
                         </button>
                     </div>
                 )}
