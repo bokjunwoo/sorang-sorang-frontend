@@ -4,15 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { AudioData, UploadStatus } from "@/types/master";
 import { Mic, Square, RotateCcw } from 'lucide-react';
 import { uploadSpeech } from "@/lib/api/speech";
-import {masterStore} from "@/store/master";
+import { masterStore } from "@/store/master";
+import {useRouter} from "next/navigation";
+import SuccessModal from "@/components/common/Modal";
 
 export default function VoiceRecorder() {
+    const router = useRouter();
     const masterInfo = masterStore(state => state.masterInfo);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [audioData, setAudioData] = useState<AudioData | null>(null);
     const [recordingTime, setRecordingTime] = useState<number>(0);
     const [error, setError] = useState<string>("");
     const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
@@ -115,9 +119,15 @@ export default function VoiceRecorder() {
 
             await uploadSpeech(formData);
             setUploadStatus('success');
+            setIsModalOpen(true);
         } catch {
             setUploadStatus('failed');
         }
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+        router.push('/master'); // 혹은 다음 페이지로 이동
     };
 
     const getButtonText = (status: UploadStatus) => {
@@ -208,6 +218,9 @@ export default function VoiceRecorder() {
                     </div>
                 )}
             </div>
+
+            {/* Success Modal */}
+            {isModalOpen && <SuccessModal onClose={handleModalClose} />}
         </div>
     );
 }
