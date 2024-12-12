@@ -1,7 +1,7 @@
 import React, {ReactNode} from "react";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'default' | 'disabled' | 'master';
+    variant?: 'default' | 'disabled' | 'master' | 'master_disabled';
     children: React.ReactNode;
     className?: string;
 }

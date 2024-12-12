@@ -149,7 +149,10 @@ export default function MasterInfoForm() {
                                 />
                             </div>
                             <div className="mt-auto mb-[56px]">
-                                <Button variant="master">
+                                <Button
+                                    variant={nameForm.watch('name') ? 'master' : 'master_disabled'}
+                                    disabled={!nameForm.watch('name')}
+                                >
                                     다음
                                 </Button>
                             </div>
@@ -196,7 +199,10 @@ export default function MasterInfoForm() {
                                 </button>
                             </div>
                             <div className="mt-auto mb-[56px]">
-                                <Button variant="master">
+                                <Button
+                                    variant={genderForm.watch('gender') ? 'master' : 'master_disabled'}
+                                    disabled={!genderForm.watch('gender')}
+                                >
                                     다음
                                 </Button>
                             </div>
@@ -226,7 +232,10 @@ export default function MasterInfoForm() {
                                 />
                             </div>
                             <div className="mt-auto mb-[56px]">
-                                <Button variant="master">
+                                <Button
+                                    variant={numberForm.watch('number') ? 'master' : 'master_disabled'}
+                                    disabled={!numberForm.watch('number')}
+                                >
                                     다음
                                 </Button>
                             </div>
@@ -262,7 +271,10 @@ export default function MasterInfoForm() {
                                 ))}
                             </div>
                             <div className="mt-auto mb-[56px]">
-                                <Button variant="master">
+                                <Button
+                                    variant={regionForm.watch('region') ? 'master' : 'master_disabled'}
+                                    disabled={!regionForm.watch('region')}
+                                >
                                     다음
                                 </Button>
                             </div>
@@ -299,7 +311,10 @@ export default function MasterInfoForm() {
                                 ))}
                             </div>
                             <div className="mt-auto mb-[56px]">
-                                <Button variant="master">
+                                <Button
+                                    variant={keywordForm.watch('keyword') ? 'master' : 'master_disabled'}
+                                    disabled={!keywordForm.watch('keyword')}
+                                >
                                     다음
                                 </Button>
                             </div>

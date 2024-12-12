@@ -11,9 +11,10 @@ export const Button = ({
     const baseStyles = cn(
         "w-[320px] h-[58px]",
         "rounded-2xl",
-        // "mt-[20px] ml-[20px]",
         "overflow-hidden"
     );
+
+    const contentStyles = variant === 'master_disabled' ? 'text-brand-gray' : 'text-white';
 
     const variants = {
         default: cn(
@@ -35,6 +36,11 @@ export const Button = ({
             "relative",
             "text-white font-pretendard text-pretendard-l",
             "bg-brand-primary2"
+        ),
+        master_disabled: cn(
+            "relative",
+            "text-brand-gray font-pretendard text-pretendard-l",
+            "bg-brand-gray1"
         )
     };
 
@@ -48,7 +54,10 @@ export const Button = ({
             disabled={variant === 'disabled' || disabled}
             {...props}
         >
-            <div className="relative z-10 flex items-center justify-center w-full h-full">
+            <div className={cn(
+                "relative z-10 flex items-center justify-center w-full h-full",
+                contentStyles
+            )}>
                 {children}
             </div>
         </button>
