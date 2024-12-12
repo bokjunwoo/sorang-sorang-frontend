@@ -6,7 +6,7 @@ interface LayoutProps {
 
 export default function MasterLayout({ children }: LayoutProps) {
     return (
-        <div className="relative min-h-screen">
+        <div className="fixed inset-0 overflow-hidden">
             <Image
                 src="/master_bg.svg"
                 alt="Background"
