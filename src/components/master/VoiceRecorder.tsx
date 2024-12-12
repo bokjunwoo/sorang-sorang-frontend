@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import {AudioData, SpeechData, UploadStatus} from "@/types/master";
-import {getSpeechResult, uploadSpeech} from "@/lib/api/speech";
+import { AudioData, SpeechData, UploadStatus } from "@/types/master";
+import { getSpeechResult, uploadSpeech } from "@/lib/api/speech";
 import { masterStore } from "@/store/master";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import AudioVisualizer from "@/components/master/AudioVisualizer";
-import {Button} from "@/components/common/Button";
+import { Button } from "@/components/common/Button";
 import Image from 'next/image';
 
 export default function VoiceRecorder() {
@@ -16,15 +16,15 @@ export default function VoiceRecorder() {
     const [audioData, setAudioData] = useState<AudioData | null>(null);
     const [recordingTime, setRecordingTime] = useState<number>(0);
     const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle');
-    // const [showResult, setShowResult] = useState(false);
-    // const [speechData, setSpeechData] = useState<SpeechData | null>(null);
-    const [showResult, setShowResult] = useState(true); // false 대신 true로 설정
-    const [speechData, setSpeechData] = useState<SpeechData>({
-        audioUrl: "test-url",
-        transcription: "할머니가 말씀하신 테스트 내용입니다.",
-        title:"애월동 순자의 이야기",
-        summary: "옛날 옛적에 작은 마을에 살던 할머니가 들려주신 이야기입니다. 할머니는 어린 시절 마을 앞 강가에서 친구들과 함께 놀았던 추억을 이야기해주셨어요..."
-    });
+    const [showResult, setShowResult] = useState(false);
+    const [speechData, setSpeechData] = useState<SpeechData | null>(null);
+    // const [showResult, setShowResult] = useState(true); // false 대신 true로 설정
+    // const [speechData, setSpeechData] = useState<SpeechData>({
+    //     audioUrl: "test-url",
+    //     transcription: "할머니가 말씀하신 테스트 내용입니다.",
+    //     title:"애월동 순자의 이야기",
+    //     summary: "옛날 옛적에 작은 마을에 살던 할머니가 들려주신 이야기입니다. 할머니는 어린 시절 마을 앞 강가에서 친구들과 함께 놀았던 추억을 이야기해주셨어요..."
+    // });
 
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
@@ -79,12 +79,43 @@ export default function VoiceRecorder() {
                 }
             };
 
-            mediaRecorderRef.current.onstop = () => {
-                const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
+            mediaRecorderRef.current.onstop = async () => {
+                const audioBlob = new Blob(chunksRef.current, {type: 'audio/webm'});
                 const audioUrl = URL.createObjectURL(audioBlob);
-                setAudioData({ url: audioUrl, blob: audioBlob })
+                setAudioData({url: audioUrl, blob: audioBlob})
                 chunksRef.current = [];
-                handleUpload();
+
+                setUploadStatus('uploading');
+
+                try {
+                    const formData = new FormData();
+                    formData.append('name', masterInfo.name);
+                    formData.append('gender', masterInfo.gender);
+                    formData.append('number', masterInfo.number);
+                    formData.append('region', masterInfo.region);
+                    formData.append('keyword', masterInfo.keyword);
+                    formData.append('audio', audioBlob);
+
+                    const uploadResponse = await uploadSpeech(formData);
+                    if (!uploadResponse.success || !uploadResponse.id) {
+                        throw new Error(uploadResponse.message);
+                    }
+
+                    const resultResponse = await getSpeechResult(uploadResponse.id);
+                    if (resultResponse.success && resultResponse.data) {
+                        setUploadStatus('success');
+                        setSpeechData(resultResponse.data);
+
+                        setTimeout(() => {
+                            setShowResult(true);
+                        }, 3000);
+                    } else {
+                        throw new Error('결과 조회 실패');
+                    }
+                } catch (error) {
+                    console.error('Upload or processing failed:', error);
+                    setUploadStatus('failed');
+                }
             };
 
             mediaRecorderRef.current.start();
@@ -104,48 +135,15 @@ export default function VoiceRecorder() {
         }
     };
 
-    const handleUpload = async () => {
-        if (!audioData?.blob) return;
-
-        setUploadStatus('uploading');
-        try {
-            const formData = new FormData();
-            formData.append('name', masterInfo.name);
-            formData.append('gender', masterInfo.gender);
-            formData.append('number', masterInfo.number);
-            formData.append('region', masterInfo.region);
-            formData.append('keyword', masterInfo.keyword);
-            formData.append('audio', audioData.blob);
-
-            const uploadResponse = await uploadSpeech(formData);
-            if (!uploadResponse.success || !uploadResponse.id) {
-                throw new Error(uploadResponse.message);
-            }
-
-            const resultResponse = await getSpeechResult(uploadResponse.id);
-            if (resultResponse.success && resultResponse.data) {
-                setUploadStatus('success');
-                setSpeechData(resultResponse.data);
-
-                setTimeout(() => {
-                    setShowResult(true);
-                }, 3000);
-            } else {
-                throw new Error('결과 조회 실패');
-            }
-        } catch {
-            setUploadStatus('failed');
-        }
-    };
-
     const getDisplayContent = () => {
         if (uploadStatus === 'uploading' && !showResult) {
             return (
-                <div className="text-center space-y-4">
+                <div className="text-center space-y-4 mt-[120px]">
                     <div
                         className="animate-spin rounded-full h-12 w-12 border-4 border-brand-primary2 border-t-transparent mx-auto"/>
-                    <p className="font-pretendard text-pretendard-lg text-brand-black">
-                        어르신의 이야기를 전달하고 있어요...
+                    <p className="font-pretendard text-pretendard-l text-brand-black">
+                        정말 재밌는 이야기였어요!<br />
+                        잠시만 기다려주세요
                     </p>
                 </div>
             );

@@ -1,5 +1,5 @@
 import { quizzes } from '@/app/data/quzi';
-import { Quiz } from '@/types/quzi';
+import { Quiz } from '@/types/quiz';
 import { useQuery } from '@tanstack/react-query';
 
 // 퀴즈 데이터를 반환하는 함수, id가 일치하는 데이터만 반환
