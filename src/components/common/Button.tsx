@@ -11,7 +11,7 @@ export const Button = ({
     const baseStyles = cn(
         "w-[320px] h-[58px]",
         "rounded-2xl",
-        "mt-[20px] ml-[20px]",
+        // "mt-[20px] ml-[20px]",
         "overflow-hidden"
     );
 
