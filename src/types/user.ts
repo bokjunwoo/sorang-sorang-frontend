@@ -1,5 +1,3 @@
-type QuizOption = string;
-
 export type UserInfo = {
   id: number;
   location: string;
@@ -10,7 +8,7 @@ export type UserInfo = {
   description: string;
   fullDescription: string;
   quiz: string;
-  options: QuizOption[];
+  options: string;
   answer: number;
 };
 
