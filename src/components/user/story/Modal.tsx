@@ -66,7 +66,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
           {item.quiz}
         </h2>
 
-        <div className='flex flex-wrap gap-4'>
+        <div className='flex flex-wrap gap-4 justify-center'>
           {/* options 배열을 map으로 돌려서 옵션 표시 */}
           {options.map((option, index) => (
             <div
@@ -98,7 +98,7 @@ export default function Modal({ onClose }: { onClose: () => void }) {
       {isAnswered && isCorrect && (
         <div className='absolute bottom-12 left-1/2 transform -translate-x-1/2'>
           <Link href={`/gift/${item.location}`}>
-            <Button className='mt-10'>보따리 열기</Button>
+            <Button className='mt-10 text-hakgyo-l'>보따리 열기</Button>
           </Link>
         </div>
       )}

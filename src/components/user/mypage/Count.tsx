@@ -14,7 +14,7 @@ export default function Count() {
   }, []);
 
   return (
-    <div className='flex items-center justify-centerw-16 py-1.5 px-4 font-pretendard text-center font-bold rounded-2xl bg-black opacity-50'>
+    <div className='flex items-center justify-centerw-16 py-1.5 px-4 font-pretendard text-pretendard-m text-center text-brand-black font-bold rounded-2xl'>
       {giftItems.length} / 12
     </div>
   );

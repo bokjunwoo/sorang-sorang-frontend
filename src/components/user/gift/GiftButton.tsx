@@ -48,10 +48,10 @@ export default function GiftButton() {
 
   return (
     <Button
-      className='absolute bottom-4 left-1/2 transform -translate-x-1/2 mb-10'
+      className='absolute text-hakgyo-l bottom-4 left-1/2 transform -translate-x-1/2 mb-10'
       onClick={handleButtonClick} // 버튼 클릭 시 handleButtonClick 실행
     >
-      잘들었어요
+      잘 들었어요
     </Button>
   );
 }
