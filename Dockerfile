@@ -1,9 +1,8 @@
 # Build stage
-FROM krmp-d2hub-idock.9rum.cc/goorm/node:16
-WORKDIR /usr/src/app
-COPY krampoline/ ./
-RUN npm ci
-RUN npm run build
-RUN npm install -g serve
+FROM node:20-alpine AS development
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
 EXPOSE 3000
-CMD ["serve", "build"]
+CMD ["npm", "run", "dev"]
