@@ -4,6 +4,7 @@ import {MasterState} from "@/types/master";
 export const masterStore = create<MasterState>((set) => ({
     masterInfo: {
         name: '',
+        number: '',
         gender: '',
         region: '',
         keyword: '',
@@ -16,6 +17,7 @@ export const masterStore = create<MasterState>((set) => ({
     resetMasterInfo: () => set({
         masterInfo: {
             name: '',
+            number: '',
             gender: '',
             region: '',
             keyword: '',
