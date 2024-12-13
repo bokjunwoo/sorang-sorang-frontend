@@ -17,7 +17,7 @@ export default function FullStory() {
       </div>
 
       <div className='font-pretendard text-pretendard-m text-black py-3 px-8'>
-        {story?.full_description}
+        {story?.fullDescription}
       </div>
     </div>
   );

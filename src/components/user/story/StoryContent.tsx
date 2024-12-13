@@ -6,8 +6,17 @@ import StoryButton from './StoryButton';
 import StoryNav from './StoryNav';
 import Image from 'next/image';
 import Modal from './Modal';
+import { useParams } from 'next/navigation';
+import { useExplore } from '@/lib/api/user';
 
 export default function StoryContent() {
+  const { id } = useParams();
+
+  const { data } = useExplore();
+
+  const story = data?.find((item) => item.id === parseInt(id as string));
+  console.log(story);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -23,11 +32,10 @@ export default function StoryContent() {
       {/* 가운데 콘텐츠 영역 */}
       <div className='flex-grow flex flex-col items-center justify-center'>
         <Image
-          src={`/${'item.keyword'}.svg`}
+          src={`/items/${story?.location}.svg`}
           alt={'item.keyword'}
           width={112}
           height={112}
-          className='bg-gray-400 rounded-full mb-10'
         />
 
         <FullStory />
@@ -35,7 +43,7 @@ export default function StoryContent() {
 
       {/* 푸터 */}
       {!isModalOpen && (
-        <div className='h-[64px] flex items-center justify-center mb-20'>
+        <div className='h-[64px] flex items-center justify-center mb-14'>
           <StoryButton onClick={openModal} />
         </div>
       )}
