@@ -22,7 +22,7 @@ export default function VoiceRecorder() {
     const MOCK_SPEECH_DATA: SpeechData = {
         audioUrl: "test-url",
         transcription: "할머니가 말씀하신 테스트 내용입니다.",
-        title: `${masterInfo.region} ${masterInfo.name}의 이야기`,
+        title: `${masterInfo.region} ${masterInfo.name}님의 이야기`,
         summary: "옛날 옛적에 작은 마을에 살던 어르신께서 들려주신 이야기입니다. 어린 시절 마을 앞 강가에서 친구들과 함께 놀았던 추억을 이야기해주셨어요..."
     };
 
