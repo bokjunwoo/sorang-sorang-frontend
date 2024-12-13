@@ -1,6 +1,6 @@
-import { Button } from '@/components/common/Button';
+import GiftButton from '@/components/user/gift/GiftButton';
+import GiftIcon from '@/components/user/gift/GiftIcon';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function GiftPage() {
   return (
@@ -16,28 +16,10 @@ export default function GiftPage() {
       </div>
 
       {/* 아래 박스 */}
-      <div className='w-72 h-80 bg-brand-bg2 rounded-2xl mt-[-40px]'>
-        <div className='flex justify-center mt-16 mb-10'>
-          <Image
-            src={`/${'item.keyword'}.svg`}
-            alt={'item.keyword'}
-            width={112}
-            height={112}
-            className='bg-gray-400 rounded-full'
-          />
-        </div>
-
-        <div className='text-brand-black text-hakgyo-l font-hakgyo text-center mb-10'>
-          동백꽃
-        </div>
-      </div>
+      <GiftIcon />
 
       {/* 하단 고정 버튼 */}
-      <Link href={'/'}>
-        <Button className='absolute bottom-4 left-1/2 transform -translate-x-1/2 mb-10'>
-          잘들었어요
-        </Button>
-      </Link>
+      <GiftButton />
     </div>
   );
 }

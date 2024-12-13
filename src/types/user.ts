@@ -1,3 +1,5 @@
+type QuizOption = string;
+
 export type UserInfo = {
   id: number;
   location: string;
@@ -6,7 +8,10 @@ export type UserInfo = {
   title: string;
   keyword: string;
   description: string;
-  full_description: string;
+  fullDescription: string;
+  quiz: string;
+  options: QuizOption[];
+  answer: number;
 };
 
 export interface UserState {

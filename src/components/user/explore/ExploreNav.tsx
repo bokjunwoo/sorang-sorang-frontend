@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function ExploreNav() {
   return (
-    <nav className='w-full h-16 flex items-center px-4'>
+    <nav className='absolute w-full h-16 flex items-center px-4 top-0'>
       {/* 좌측 < 아이콘 */}
       <div className='flex-shrink-0'>
         <Image

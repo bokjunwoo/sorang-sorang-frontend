@@ -27,7 +27,7 @@ export default function CarouselSlide({
           <div className='w-full h-full text-black flex flex-col justify-center items-center'>
             {/* Text Chip */}
             <div className='px-4 py-2 my-5 bg-gray-300 text-sm text-black rounded-full opacity-50'>
-              제주시 애월읍
+              제주시 {item.location}
             </div>
 
             {/* Text Content */}
@@ -42,14 +42,14 @@ export default function CarouselSlide({
 
             {/* Image Container */}
             <Image
-              src={`/${item.keyword}.svg`}
+              src={`/items/${item.location}.svg`}
               alt={item.keyword}
               width={112}
               height={112}
             />
 
             {/* Text Box */}
-            <div className='my-5 px-3 font-pretendard text-pretendard-m'>
+            <div className='my-5 px-3 font-pretendard text-pretendard-m min-h-[200px]'>
               {item.description}
             </div>
           </div>
