@@ -12,11 +12,11 @@ export default function FullStory() {
 
   return (
     <div>
-      <div className='font-hakgyo text-hakgyo-l text-black text-center'>
+      <div className='mb-[20px] font-hakgyo text-hakgyo-l text-brand-black text-center'>
         {story?.title}
       </div>
 
-      <div className='font-pretendard text-pretendard-m text-black py-3 px-8'>
+      <div className='font-pretendard text-pretendard-m text-brand-black py-3 px-8'>
         {story?.fullDescription}
       </div>
     </div>

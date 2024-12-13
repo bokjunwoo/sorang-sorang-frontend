@@ -43,7 +43,7 @@ export default function ExplorePage() {
     : false;
 
   return (
-    <div className='relative flex flex-col items-center justify-center min-h-screen'>
+    <div className='mt-[44px] relative flex flex-col items-center justify-center min-h-screen'>
       {/* ExploreNav 컴포넌트 */}
       <ExploreNav />
 
@@ -54,10 +54,10 @@ export default function ExplorePage() {
 
       {/* "이야기보따리 듣기" 버튼 */}
       <Link href={`/story/${currentIndex + 1}`}>
-        <div className='absolute bottom-10 w-full flex justify-center'>
+        <div className='absolute pb-[40px] bottom-10 w-full flex justify-center'>
           <Button
             variant={isButtonDisabled ? 'disabled' : 'default'}
-            className='mb-10 z-10 right-48 top-6'
+            className='mb-10 z-10 right-48 top-6 text-hakgyo-l'
           >
             {isButtonDisabled ? '이미 완료된 지역입니다' : '이야기보따리 듣기'}
           </Button>

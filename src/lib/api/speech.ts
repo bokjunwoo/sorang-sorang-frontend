@@ -2,7 +2,7 @@ import {APIResponse, UploadResponse} from "@/types/api";
 import {SpeechData} from "@/types/master";
 
 export const uploadSpeech = async (formData: FormData): Promise<UploadResponse> => {
-    const response = await fetch('http://35.197.99.211:8080/api/speech', {
+    const response = await fetch('/api/speech', {
         method: 'POST',
         body: formData,
         headers: {
@@ -15,7 +15,7 @@ export const uploadSpeech = async (formData: FormData): Promise<UploadResponse> 
 }
 
 export const getSpeechResult = async (id: number): Promise<APIResponse<SpeechData>> => {
-    const response = await fetch(`http://35.197.99.211:8080/api/speech/result/${id}`, {
+    const response = await fetch(`/api/speech/result/${id}`, {
         method: 'GET',
     });
 

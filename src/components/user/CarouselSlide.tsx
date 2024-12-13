@@ -10,46 +10,45 @@ type Props = {
 export default function CarouselSlide({
   showSideBox = false,
   item,
-  height = '100px',
 }: Props) {
   return (
-    <div>
-      <div className='flex w-full h-full space-x-5'>
+    <div className="flex justify-center items-center h-screen -mt-32">
+      <div className='flex w-full space-x-5'>
         {showSideBox && (
           <div
-            className={`w-[7%] h-[${[
-              height,
-            ]}] bg-gray-300 min-h-[100px] rounded-tr-lg rounded-br-lg`}
+            className={`w-[7%] h-[500px] bg-brand-bg1 min-h-[100px] rounded-tr-lg rounded-br-lg`}
           ></div>
         )}
 
-        <div className={`w-[86%] h-[${[height]}] rounded-lg  bg-brand-bg2`}>
-          <div className='w-full h-full text-black flex flex-col justify-center items-center'>
+        <div className={`w-[86%] h-[500px] rounded-lg  bg-brand-bg1 border-4 border-brand-bg2`}>
+          <div className='w-full h-full text-brand-black flex flex-col justify-center items-center'>
             {/* Text Chip */}
-            <div className='px-4 py-2 my-5 bg-gray-300 text-sm text-black rounded-full opacity-50'>
+            <div className='my-5 top-10 h-7 px-4 py-1 mt-[30px] font-hakgyo text-hakgyo-m bg-brand-bg2 text-brand-black rounded-full opacity-80'>
               제주시 {item.location}
             </div>
 
             {/* Text Content */}
-            <div className='my-5 text-center'>
+            <div className='mb-3 text-center'>
               <div className='font-hakgyo text-hakgyo-l'>
                 {item.name} {item.gender}의
               </div>
               <div className='font-hakgyo text-hakgyo-l'>
-                {item.title} 이야기
+                {item.title}
               </div>
             </div>
 
             {/* Image Container */}
-            <Image
-              src={`/items/${item.location}.svg`}
-              alt={item.keyword}
-              width={112}
-              height={112}
-            />
+            <div className="mt-[20px] mb-[20px]">
+              <Image
+                  src={`/items/${item.location}.svg`}
+                  alt={item.keyword}
+                  width={112}
+                  height={112}
+              />
+            </div>
 
             {/* Text Box */}
-            <div className='my-5 px-3 font-pretendard text-pretendard-m min-h-[200px]'>
+            <div className='text-center my-5 px-3 font-pretendard text-pretendard-m pb-[10px] min-h-[100px]'>
               {item.description}
             </div>
           </div>
@@ -57,9 +56,7 @@ export default function CarouselSlide({
 
         {showSideBox && (
           <div
-            className={`w-[7%] h-[${[
-              height,
-            ]}] bg-gray-300 min-h-[100px] rounded-tl-lg rounded-bl-lg`}
+            className={`w-[7%] h-[500px] bg-brand-bg1 min-h-[100px] rounded-tl-lg rounded-bl-lg`}
           ></div>
         )}
       </div>
