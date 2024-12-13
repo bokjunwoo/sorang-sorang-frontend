@@ -9,13 +9,6 @@ import AudioVisualizer from "@/components/master/AudioVisualizer";
 import { Button } from "@/components/common/Button";
 import Image from 'next/image';
 
-const MOCK_SPEECH_DATA: SpeechData = {
-    audioUrl: "test-url",
-    transcription: "할머니가 말씀하신 테스트 내용입니다.",
-    title: "애월동 순자의 이야기",
-    summary: "옛날 옛적에 작은 마을에 살던 할머니가 들려주신 이야기입니다. 할머니는 어린 시절 마을 앞 강가에서 친구들과 함께 놀았던 추억을 이야기해주셨어요..."
-};
-
 export default function VoiceRecorder() {
     const router = useRouter();
     const masterInfo = masterStore(state => state.masterInfo);
@@ -25,6 +18,13 @@ export default function VoiceRecorder() {
     const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle');
     const [showResult, setShowResult] = useState(false);
     const [speechData, setSpeechData] = useState<SpeechData | null>(null);
+
+    const MOCK_SPEECH_DATA: SpeechData = {
+        audioUrl: "test-url",
+        transcription: "할머니가 말씀하신 테스트 내용입니다.",
+        title: `${masterInfo.region} ${masterInfo.name}의 이야기`,
+        summary: "옛날 옛적에 작은 마을에 살던 어르신께서 들려주신 이야기입니다. 어린 시절 마을 앞 강가에서 친구들과 함께 놀았던 추억을 이야기해주셨어요..."
+    };
 
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
