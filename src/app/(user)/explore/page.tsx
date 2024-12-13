@@ -57,7 +57,7 @@ export default function ExplorePage() {
         <div className='absolute pb-[40px] bottom-10 w-full flex justify-center'>
           <Button
             variant={isButtonDisabled ? 'disabled' : 'default'}
-            className='mb-10 z-10 right-48 top-6'
+            className='mb-10 z-10 right-48 top-6 text-hakgyo-l'
           >
             {isButtonDisabled ? '이미 완료된 지역입니다' : '이야기보따리 듣기'}
           </Button>

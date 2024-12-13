@@ -25,20 +25,24 @@ export default function StoryContent() {
   return (
     <div className='w-full h-screen bg-brand-bg1 flex flex-col justify-center'>
       {/* 헤더 */}
-      <div className='h-[64px]'>
+      <div className='h-[64px] mt-[20px]'>
         <StoryNav />
       </div>
 
       {/* 가운데 콘텐츠 영역 */}
       <div className='flex-grow flex flex-col items-center justify-center'>
-        <Image
-          src={`/items/${story?.location}.svg`}
-          alt={'item.keyword'}
-          width={112}
-          height={112}
-        />
+          <div className="mb-[20px]">
+              <Image
+                  src={`/items/${story?.location}.svg`}
+                  alt={'item.keyword'}
+                  width={112}
+                  height={112}
+              />
+          </div>
 
-        <FullStory />
+          <div className="mb-[40px]">
+              <FullStory />
+          </div>
       </div>
 
       {/* 푸터 */}
