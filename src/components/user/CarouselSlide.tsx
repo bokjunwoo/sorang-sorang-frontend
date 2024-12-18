@@ -11,6 +11,13 @@ export default function CarouselSlide({
   showSideBox = false,
   item,
 }: Props) {
+  const limitToThreeLines = (text: string) => {
+    const lines = text.split('. ');  // 문장 단위로 분리
+    if (lines.length <= 3) return text;
+
+    return lines.slice(0, 3).join('. ') + '...';
+  };
+
   return (
     <div className="flex justify-center items-center h-screen -mt-32">
       <div className='flex w-full space-x-5'>
@@ -24,7 +31,7 @@ export default function CarouselSlide({
           <div className='w-full h-full text-brand-black flex flex-col justify-center items-center'>
             {/* Text Chip */}
             <div className='my-5 top-10 h-7 px-4 py-1 mt-[30px] font-hakgyo text-hakgyo-m bg-brand-bg2 text-brand-black rounded-full opacity-80'>
-              제주시 {item.location}
+              제주시 {item.region}
             </div>
 
             {/* Text Content */}
@@ -40,7 +47,7 @@ export default function CarouselSlide({
             {/* Image Container */}
             <div className="mt-[20px] mb-[20px]">
               <Image
-                  src={`/items/${item.location}.svg`}
+                  src={`/items/${item.region}.svg`}
                   alt={item.keyword}
                   width={112}
                   height={112}
@@ -48,7 +55,7 @@ export default function CarouselSlide({
             </div>
 
             {/* Text Box */}
-            <div className='text-center my-5 px-3 font-pretendard text-pretendard-m pb-[10px] min-h-[100px]'>
+            <div className='text-center my-5 px-3 font-pretendard text-pretendard-m pb-[10px] h-[5em] line-clamp-3 overflow-hidden'>
               {item.description}
             </div>
           </div>

@@ -1,6 +1,6 @@
 export type UserInfo = {
   id: number;
-  location: string;
+  region: string;
   name: string;
   gender: string;
   title: string;
@@ -8,7 +8,7 @@ export type UserInfo = {
   description: string;
   fullDescription: string;
   quiz: string;
-  options: string;
+  options: string[];
   answer: number;
 };
 
