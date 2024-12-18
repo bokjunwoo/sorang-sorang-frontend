@@ -11,13 +11,6 @@ export default function CarouselSlide({
   showSideBox = false,
   item,
 }: Props) {
-  const limitToThreeLines = (text: string) => {
-    const lines = text.split('. ');  // 문장 단위로 분리
-    if (lines.length <= 3) return text;
-
-    return lines.slice(0, 3).join('. ') + '...';
-  };
-
   return (
     <div className="flex justify-center items-center h-screen -mt-32">
       <div className='flex w-full space-x-5'>
