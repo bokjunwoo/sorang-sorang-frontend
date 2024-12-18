@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 
 export default function FullStory() {
   const { id } = useParams();
-
   const { data } = useExplore();
 
   const story = data?.find((item) => item.id === parseInt(id as string));
@@ -16,7 +15,7 @@ export default function FullStory() {
         {story?.title}
       </div>
 
-      <div className='font-pretendard text-pretendard-m text-brand-black py-3 px-8'>
+      <div className='font-pretendard text-pretendard-m text-center text-brand-black py-3 px-8'>
         {story?.fullDescription}
       </div>
     </div>

@@ -72,14 +72,14 @@ export default function HomePage() {
 
                     <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
                         <div className="w-full max-w-md space-y-8 animate-slideUp">
-                            <div className="text-center space-y-4">
+                            <div className="text-center space-y-4 pt-[100px]">
                                 <h2 className="text-pretendard-xl font-pretendard text-brand-black">
                                     안녕하세요!<br/>
                                     이름이 무엇인가요?
                                 </h2>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-60 justify-center">
+                            <form onSubmit={handleSubmit} className="flex flex-col h-[500px]">
                                 <div className="text-brand-black pt-[80px] flex justify-center">
                                     <Input
                                         register={form.register('name')}
@@ -89,14 +89,16 @@ export default function HomePage() {
                                     />
                                 </div>
 
-                                <Button
-                                    type="submit"
-                                    variant="default"
-                                    className="w-full text-hakgyo-l"
-                                    disabled={!form.watch('name').trim()}
-                                >
-                                    확인
-                                </Button>
+                                <div className="flex-1 flex items-end">
+                                    <Button
+                                        type="submit"
+                                        variant="default"
+                                        className="w-full text-hakgyo-l"
+                                        disabled={!form.watch('name').trim()}
+                                    >
+                                        확인
+                                    </Button>
+                                </div>
                             </form>
                         </div>
                     </div>
