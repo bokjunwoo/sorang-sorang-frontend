@@ -1,11 +1,19 @@
+'use client'
+
 import { Chip } from '@/components/common/Chip';
 import Image from 'next/image';
+import {useRouter} from "next/navigation";
 
 export default function StoryNav() {
+    const router = useRouter();
+
   return (
     <nav className='w-full h-16 flex items-center px-4 justify-between'>
       {/* 좌측 < 아이콘 */}
-      <div className='flex-start'>
+      <div
+          className='flex-start cursor-pointer'
+          onClick={() => router.push('/explore')}
+      >
         <Image
           src='/left_arrow_b.svg'
           alt='Back Arrow'

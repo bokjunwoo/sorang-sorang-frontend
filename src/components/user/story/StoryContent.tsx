@@ -5,16 +5,16 @@ import FullStory from './FullStory';
 import StoryButton from './StoryButton';
 import StoryNav from './StoryNav';
 import Image from 'next/image';
-import Modal from './Modal';
+import QuizModal from './QuizModal';
 import { useParams } from 'next/navigation';
 import { useExplore } from '@/lib/api/user';
+import {UserInfo} from "@/types/user";
 
 export default function StoryContent() {
   const { id } = useParams();
-
   const { data } = useExplore();
 
-  const story = data?.find((item) => item.id === parseInt(id as string));
+  const story: UserInfo | undefined = data?.find((item: UserInfo) => item.id === parseInt(id as string));
   console.log(story);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function StoryContent() {
       <div className='flex-grow flex flex-col items-center justify-center'>
           <div className="mb-[20px]">
               <Image
-                  src={`/items/${story?.location}.svg`}
+                  src={`/items/${story?.region}.svg`}
                   alt={'item.keyword'}
                   width={112}
                   height={112}
@@ -52,7 +52,7 @@ export default function StoryContent() {
         </div>
       )}
 
-      {isModalOpen && <Modal onClose={closeModal} />}
+      {isModalOpen && <QuizModal onClose={closeModal} />}
     </div>
   );
 }

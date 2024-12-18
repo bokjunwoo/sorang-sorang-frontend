@@ -1,8 +1,7 @@
 import { UserInfo } from '@/types/user';
 import { useQuery } from '@tanstack/react-query';
-import { ExploreItem } from "@/lib/data/explore";
 
-export const getExplore = async (): Promise<ExploreItem[]> => {
+export const getExplore = async (): Promise<UserInfo[]> => {
   const response = await fetch('https://sorang.site/api/explore', {
     method: 'GET',
     headers: {
