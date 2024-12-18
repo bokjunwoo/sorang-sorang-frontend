@@ -1,14 +1,17 @@
 import { UserInfo } from '@/types/user';
 import { useQuery } from '@tanstack/react-query';
-import {exploreInfo, ExploreItem} from "@/lib/data/explore";
+import { ExploreItem } from "@/lib/data/explore";
 
 export const getExplore = async (): Promise<ExploreItem[]> => {
-  try {
-    return exploreInfo;
-  } catch (error) {
-    console.error('에러 발생:', error);
-    throw new Error('목데이터 로드 실패');
-  }
+  const response = await fetch('https://sorang.site/api/explore', {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  if (!response.ok) throw new Error('데이터 로드 실패');
+  return response.json();
 };
 
 export const useExplore = () => {

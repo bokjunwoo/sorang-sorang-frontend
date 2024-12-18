@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AudioData, SpeechData, UploadStatus } from "@/types/master";
-// import { getSpeechResult, uploadSpeech } from "@/lib/api/speech";
+import { getSpeechResult, uploadSpeech } from "@/lib/api/speech";
 import { masterStore } from "@/store/master";
 import { useRouter } from "next/navigation";
 import AudioVisualizer from "@/components/master/AudioVisualizer";
@@ -18,13 +18,6 @@ export default function VoiceRecorder() {
     const [uploadStatus, setUploadStatus] = useState<UploadStatus>('idle');
     const [showResult, setShowResult] = useState(false);
     const [speechData, setSpeechData] = useState<SpeechData | null>(null);
-
-    const MOCK_SPEECH_DATA: SpeechData = {
-        audioUrl: "test-url",
-        transcription: "할머니가 말씀하신 테스트 내용입니다.",
-        title: `${masterInfo.region} ${masterInfo.name}님의 이야기`,
-        summary: "옛날 옛적에 작은 마을에 살던 어르신께서 들려주신 이야기입니다. 어린 시절 마을 앞 강가에서 친구들과 함께 놀았던 추억을 이야기해주셨어요..."
-    };
 
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const chunksRef = useRef<Blob[]>([]);
@@ -85,42 +78,35 @@ export default function VoiceRecorder() {
                 setAudioData({url: audioUrl, blob: audioBlob})
                 chunksRef.current = [];
 
-                setUploadStatus('uploading');
-                setTimeout(() => {
-                    setUploadStatus('success');
-                    setSpeechData(MOCK_SPEECH_DATA);
-                    setShowResult(true);
-                }, 3000);
+                try {
+                    const formData = new FormData();
+                    formData.append('name', masterInfo.name);
+                    formData.append('gender', masterInfo.gender);
+                    formData.append('number', masterInfo.number);
+                    formData.append('region', masterInfo.region);
+                    formData.append('keyword', masterInfo.keyword);
+                    formData.append('audio', audioBlob);
 
-                // try {
-                //     const formData = new FormData();
-                //     formData.append('name', masterInfo.name);
-                //     formData.append('gender', masterInfo.gender);
-                //     formData.append('number', masterInfo.number);
-                //     formData.append('region', masterInfo.region);
-                //     formData.append('keyword', masterInfo.keyword);
-                //     formData.append('audio', audioBlob);
-                //
-                //     const uploadResponse = await uploadSpeech(formData);
-                //     if (!uploadResponse.success || !uploadResponse.id) {
-                //         throw new Error(uploadResponse.message);
-                //     }
-                //
-                //     const resultResponse = await getSpeechResult(uploadResponse.id);
-                //     if (resultResponse.success && resultResponse.data) {
-                //         setUploadStatus('success');
-                //         setSpeechData(resultResponse.data);
-                //
-                //         setTimeout(() => {
-                //             setShowResult(true);
-                //         }, 3000);
-                //     } else {
-                //         throw new Error('결과 조회 실패');
-                //     }
-                // } catch (error) {
-                //     console.error('Upload or processing failed:', error);
-                //     setUploadStatus('failed');
-                // }
+                    const uploadResponse = await uploadSpeech(formData);
+                    if (!uploadResponse.success || !uploadResponse.id) {
+                        throw new Error(uploadResponse.message);
+                    }
+
+                    const resultResponse = await getSpeechResult(uploadResponse.id);
+                    if (resultResponse.success && resultResponse.data) {
+                        setUploadStatus('success');
+                        setSpeechData(resultResponse.data);
+
+                        setTimeout(() => {
+                            setShowResult(true);
+                        }, 3000);
+                    } else {
+                        throw new Error('결과 조회 실패');
+                    }
+                } catch (error) {
+                    console.error('Upload or processing failed:', error);
+                    setUploadStatus('failed');
+                }
             };
 
             mediaRecorderRef.current.start();
@@ -198,7 +184,7 @@ export default function VoiceRecorder() {
                         </div>
                     </div>
 
-                    {/* Button - 같은 위치에 고정 */}
+                    {/* Button */}
                     <div className="absolute top-[700px] left-0 right-0">
                         <Button
                             onClick={() => router.push('/master')}
