@@ -115,7 +115,7 @@ export default function QuestBadgeCollection() {
   ];
 
   return (
-    <div>
+    <div className="relative w-full h-screen -mt-[200px]">
       {regions.map((region) => {
         // giftItems 배열에 해당 지역 이름이 포함되어 있으면 그 지역 아이콘을 렌더링
         if (giftItems.includes(region.name)) {
