@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from '@/components/user/mypage/Icon';
-import Image from 'next/image';
 import New from '@/components/user/mypage/New';
 import Count from '@/components/user/mypage/Count';
 import Name from '@/components/user/mypage/Name';

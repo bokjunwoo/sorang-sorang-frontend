@@ -21,9 +21,9 @@ export default function Name() {
           </div>
           {/* 배경 박스 - 아바타의 절반 정도를 덮도록 위치 */}
           <div className="absolute left-3.5 flex items-center bg-black/50 rounded-full py-0.5 pr-4 pl-7">
-        <span className="text-white text-pretendard-s font-pretendard font-bold whitespace-nowrap">
-          {userInfo}
-        </span>
+            <span className="text-white text-pretendard-s font-pretendard font-bold whitespace-nowrap">
+              {userInfo}
+            </span>
           </div>
       </div>
   );
