@@ -7,18 +7,21 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Provider>
-      <div className='min-h-screen'>
-        <Image
-          src='/bg/user_bg.svg'
-          alt='Background'
-          fill
-          className='object-cover -z-10'
-          priority
-        />
-
-        <div>{children}</div>
-      </div>
-    </Provider>
+      <Provider>
+          <div className='min-h-screen relative'>
+              <div className="fixed inset-0 -z-10">
+                  <Image
+                      src='/bg/user_bg.svg'
+                      alt='Background'
+                      fill
+                      className='object-cover'
+                      priority
+                  />
+              </div>
+              <div className="relative">
+                  {children}
+              </div>
+          </div>
+      </Provider>
   );
 }
