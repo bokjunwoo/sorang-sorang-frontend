@@ -1,11 +1,9 @@
 export interface UploadResponse {
-    success: boolean;
-    message: string;
     id?: number;
 }
 
-export interface APIResponse<T> {
-    success: boolean;
-    data?: T;
-    error?: string;
+export interface LatestStoryResponse {
+    id: number;
+    name: string;
+    gender: '할머니' | '할아버지';
 }

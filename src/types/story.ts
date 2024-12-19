@@ -6,8 +6,6 @@ export interface AudioData {
 export type UploadStatus = 'idle' | 'uploading' | 'success' | 'failed';
 
 export interface SpeechData {
-    audioUrl: string;
-    transcription?: string;
     summary?: string;
     title?: string;
 }
@@ -24,9 +22,5 @@ export type StoryInfo = {
     quiz: string;
     options: string[];
     answer: number;
+    audioUrl: string;
 };
-
-export interface LatestStoryResponse {
-    masterName: string;
-    masterGender: '할머니' | '할아버지';
-}
