@@ -17,12 +17,12 @@ export default function MasterLayout({children}: LayoutProps) {
     };
 
     return (
-        <div className="fixed inset-0 overflow-hidden">
+        <div className="relative min-h-screen">
             <Image
                 src={getBackgroundImage()}
                 alt="Background"
                 fill
-                className="object-cover -z-10"
+                className="object-cover fixed inset-0 -z-10"
                 priority
             />
             <div className="px-5 py-6 md:py-8">

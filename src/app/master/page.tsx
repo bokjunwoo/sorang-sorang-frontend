@@ -15,7 +15,7 @@ export default function MasterPage() {
             <Button
                 onClick={handleClick}
                 variant='master'
-                className="w-full mt-[610px]"
+                className="w-full mt-[660px]"
             >
                 시작하기
             </Button>
