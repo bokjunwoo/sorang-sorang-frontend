@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import { AudioData, SpeechData, UploadStatus } from "@/types/master";
-import { getSpeechResult, uploadSpeech } from "@/lib/api/speech";
+import { getSpeechResult, uploadSpeech } from "@/lib/api/story";
 import { masterStore } from "@/store/master";
 import { useRouter } from "next/navigation";
 import AudioVisualizer from "@/components/master/AudioVisualizer";
 import { Button } from "@/components/common/Button";
 import Image from 'next/image';
+import {AudioData, SpeechData, UploadStatus} from "@/types/story";
 
 export default function VoiceRecorder() {
     const router = useRouter();
@@ -78,6 +78,8 @@ export default function VoiceRecorder() {
                 setAudioData({url: audioUrl, blob: audioBlob})
                 chunksRef.current = [];
 
+                setUploadStatus('uploading');
+
                 try {
                     const formData = new FormData();
                     formData.append('name', masterInfo.name);
@@ -87,16 +89,18 @@ export default function VoiceRecorder() {
                     formData.append('keyword', masterInfo.keyword);
                     formData.append('audio', audioBlob);
 
-                    const uploadResponse = await uploadSpeech(formData);
-                    if (!uploadResponse.success || !uploadResponse.id) {
-                        throw new Error(uploadResponse.message);
+                    const response = await uploadSpeech(formData);
+                    if (!response.id) {
+                        throw new Error('DB에 정상적으로 저장되지 않았음');
                     }
 
-                    const resultResponse = await getSpeechResult(uploadResponse.id);
+                    const resultResponse = await getSpeechResult(response.id);
                     if (resultResponse.success && resultResponse.data) {
                         setUploadStatus('success');
-                        setSpeechData(resultResponse.data);
-
+                        setSpeechData({
+                            title: resultResponse.data.title,
+                            summary: resultResponse.data.description
+                        });
                         setTimeout(() => {
                             setShowResult(true);
                         }, 3000);

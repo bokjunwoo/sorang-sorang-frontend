@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-export default function Icon() {
+export default function QuestBadgeCollection() {
   const [giftItems, setGiftItems] = useState<string[]>([]);
 
   // 로컬스토리지에서 'gift' 키값을 가져와 giftItems 상태에 저장

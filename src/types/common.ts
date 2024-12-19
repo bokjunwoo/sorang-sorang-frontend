@@ -7,8 +7,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 export interface ChipProps {
-    children: ReactNode;
+    children?: ReactNode;
     size?: 'small' | 'large';
     icon?: ReactNode;
     className?: string;
+    audioUrl?: string;
+    playText?: string;
+    stopText?: string;
 }
