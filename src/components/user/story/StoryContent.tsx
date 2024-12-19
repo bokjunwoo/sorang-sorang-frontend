@@ -8,13 +8,14 @@ import Image from 'next/image';
 import QuizModal from './QuizModal';
 import { useParams } from 'next/navigation';
 import { useExplore } from '@/lib/api/user';
-import {UserInfo} from "@/types/user";
+
+import {StoryInfo} from "@/types/story";
 
 export default function StoryContent() {
   const { id } = useParams();
   const { data } = useExplore();
 
-  const story: UserInfo | undefined = data?.find((item: UserInfo) => item.id === parseInt(id as string));
+  const story: StoryInfo | undefined = data?.find((item: StoryInfo) => item.id === parseInt(id as string));
   console.log(story);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

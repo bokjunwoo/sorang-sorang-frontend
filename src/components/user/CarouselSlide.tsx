@@ -1,9 +1,9 @@
-import { UserInfo } from '@/types/user';
 import Image from 'next/image';
+import {StoryInfo} from "@/types/story";
 
 type Props = {
   showSideBox?: boolean;
-  item: UserInfo;
+  item: StoryInfo;
   height?: string;
 };
 

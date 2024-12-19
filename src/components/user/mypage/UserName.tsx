@@ -4,7 +4,7 @@ import { userStore } from '@/store/user';
 import React from 'react';
 import Image from "next/image";
 
-export default function Name() {
+export default function UserName() {
   const userInfo = userStore((state) => state.name);
 
   return (
