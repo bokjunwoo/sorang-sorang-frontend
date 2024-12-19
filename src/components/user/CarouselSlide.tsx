@@ -1,9 +1,9 @@
-import { UserInfo } from '@/types/user';
 import Image from 'next/image';
+import {StoryInfo} from "@/types/story";
 
 type Props = {
   showSideBox?: boolean;
-  item: UserInfo;
+  item: StoryInfo;
   height?: string;
 };
 
@@ -24,7 +24,7 @@ export default function CarouselSlide({
           <div className='w-full h-full text-brand-black flex flex-col justify-center items-center'>
             {/* Text Chip */}
             <div className='my-5 top-10 h-7 px-4 py-1 mt-[30px] font-hakgyo text-hakgyo-m bg-brand-bg2 text-brand-black rounded-full opacity-80'>
-              제주시 {item.location}
+              제주시 {item.region}
             </div>
 
             {/* Text Content */}
@@ -40,7 +40,7 @@ export default function CarouselSlide({
             {/* Image Container */}
             <div className="mt-[20px] mb-[20px]">
               <Image
-                  src={`/items/${item.location}.svg`}
+                  src={`/items/${item.region}.svg`}
                   alt={item.keyword}
                   width={112}
                   height={112}
@@ -48,7 +48,7 @@ export default function CarouselSlide({
             </div>
 
             {/* Text Box */}
-            <div className='text-center my-5 px-3 font-pretendard text-pretendard-m pb-[10px] min-h-[100px]'>
+            <div className='text-center my-5 px-3 font-pretendard text-pretendard-m pb-[10px] h-[5em] line-clamp-3 overflow-hidden'>
               {item.description}
             </div>
           </div>

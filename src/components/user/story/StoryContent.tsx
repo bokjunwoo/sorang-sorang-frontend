@@ -5,20 +5,17 @@ import FullStory from './FullStory';
 import StoryButton from './StoryButton';
 import StoryNav from './StoryNav';
 import Image from 'next/image';
-import Modal from './Modal';
+import QuizModal from './QuizModal';
 import { useParams } from 'next/navigation';
 import { useExplore } from '@/lib/api/user';
 
+import {StoryInfo} from "@/types/story";
+
 export default function StoryContent() {
   const { id } = useParams();
-
   const { data } = useExplore();
-
-  const story = data?.find((item) => item.id === parseInt(id as string));
-  console.log(story);
-
+  const story: StoryInfo | undefined = data?.find((item: StoryInfo) => item.id === parseInt(id as string));
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -26,14 +23,14 @@ export default function StoryContent() {
     <div className='w-full h-screen bg-brand-bg1 flex flex-col justify-center'>
       {/* 헤더 */}
       <div className='h-[64px] mt-[20px]'>
-        <StoryNav />
+        <StoryNav storyId={parseInt(id as string)}/>
       </div>
 
       {/* 가운데 콘텐츠 영역 */}
       <div className='flex-grow flex flex-col items-center justify-center'>
           <div className="mb-[20px]">
               <Image
-                  src={`/items/${story?.location}.svg`}
+                  src={`/items/${story?.region}.svg`}
                   alt={'item.keyword'}
                   width={112}
                   height={112}
@@ -52,7 +49,7 @@ export default function StoryContent() {
         </div>
       )}
 
-      {isModalOpen && <Modal onClose={closeModal} />}
+      {isModalOpen && <QuizModal onClose={closeModal} />}
     </div>
   );
 }

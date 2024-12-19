@@ -34,12 +34,12 @@ export default function GiftIcon() {
 
   return (
     <div className='w-72 h-80 bg-brand-bg2 rounded-2xl mt-[-40px]'>
-      <div className='flex justify-center mt-16 mb-10'>
+      <div className='flex justify-center mt-20 mb-10'>
         <Image
           src={`/items/${location}.svg`}
           alt={'item.keyword'}
-          width={112}
-          height={112}
+          width={100}
+          height={100}
         />
       </div>
 

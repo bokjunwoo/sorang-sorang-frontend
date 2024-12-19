@@ -35,7 +35,7 @@ export default function ExplorePage() {
   if (!data) return null;
 
   // 현재 선택된 지역
-  const selectedLocation = data[currentIndex]?.location;
+  const selectedLocation = data[currentIndex]?.region;
 
   // "이야기보따리 듣기" 버튼의 비활성화 여부
   const isButtonDisabled = selectedLocation

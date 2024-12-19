@@ -11,9 +11,9 @@ export default function MasterLayout({children}: LayoutProps) {
     const pathname = usePathname();
 
     const getBackgroundImage = () => {
-        if (pathname === '/master/info') return '/info_bg.svg';
-        if (pathname === '/master/speech') return '/speech_bg.svg';
-        return '/master_bg.svg';
+        if (pathname === '/master/info') return '/bg/info_bg.svg';
+        if (pathname === '/master/speech') return '/bg/speech_bg.svg';
+        return '/bg/master_bg.svg';
     };
 
     return (
