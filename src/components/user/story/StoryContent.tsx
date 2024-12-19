@@ -14,12 +14,8 @@ import {StoryInfo} from "@/types/story";
 export default function StoryContent() {
   const { id } = useParams();
   const { data } = useExplore();
-
   const story: StoryInfo | undefined = data?.find((item: StoryInfo) => item.id === parseInt(id as string));
-  console.log(story);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -27,7 +23,7 @@ export default function StoryContent() {
     <div className='w-full h-screen bg-brand-bg1 flex flex-col justify-center'>
       {/* 헤더 */}
       <div className='h-[64px] mt-[20px]'>
-        <StoryNav />
+        <StoryNav storyId={parseInt(id as string)}/>
       </div>
 
       {/* 가운데 콘텐츠 영역 */}
