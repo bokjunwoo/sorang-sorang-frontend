@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useRef, useState } from "react";
-import { AudioData, SpeechData, UploadStatus } from "@/types/master";
-import { getSpeechResult, uploadSpeech } from "@/lib/api/speech";
+import { getSpeechResult, uploadSpeech } from "@/lib/api/story";
 import { masterStore } from "@/store/master";
 import { useRouter } from "next/navigation";
 import AudioVisualizer from "@/components/master/AudioVisualizer";
 import { Button } from "@/components/common/Button";
 import Image from 'next/image';
+import {AudioData, SpeechData, UploadStatus} from "@/types/story";
 
 export default function VoiceRecorder() {
     const router = useRouter();

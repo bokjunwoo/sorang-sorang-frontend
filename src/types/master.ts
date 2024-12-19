@@ -1,12 +1,5 @@
 import {REGIONS} from "@/config/regions";
 
-export interface AudioData {
-    url: string;
-    blob: Blob;
-}
-
-export type UploadStatus = 'idle' | 'uploading' | 'success' | 'failed';
-
 export interface MasterInfo {
     name: string;
     gender: '할머니' | '할아버지' | '';
@@ -23,9 +16,3 @@ export interface MasterState {
     resetMasterInfo: () => void;
 }
 
-export interface SpeechData {
-    audioUrl: string;
-    transcription?: string;
-    summary?: string;
-    title?: string;
-}
