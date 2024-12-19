@@ -12,7 +12,7 @@ export default function UserName() {
           {/* 아바타 - 배경 박스보다 위에 위치 */}
           <div className="relative z-10 w-8 h-8 rounded-full bg-white overflow-hidden flex items-center justify-center">
               <Image
-                  src="/avatar.svg"
+                  src="/ui/avatar.svg"
                   alt="아바타"
                   width={24}
                   height={24}

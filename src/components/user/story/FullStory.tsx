@@ -15,7 +15,7 @@ export default function FullStory() {
         {story?.title}
       </div>
 
-      <div className='font-pretendard text-pretendard-m text-center text-brand-black py-3 px-8'>
+      <div className='font-pretendard text-pretendard-m text-center text-brand-black py-3 px-8 h-[400px] overflow-y-auto'>
         {story?.fullDescription}
       </div>
     </div>

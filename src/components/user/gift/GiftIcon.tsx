@@ -38,8 +38,8 @@ export default function GiftIcon() {
         <Image
           src={`/items/${location}.svg`}
           alt={'item.keyword'}
-          width={112}
-          height={112}
+          width={100}
+          height={100}
         />
       </div>
 

@@ -40,7 +40,7 @@ export default function HomePage() {
     return (
         <div className="relative min-h-screen w-full overflow-hidden">
             <Image
-                src="/home_bg.svg"
+                src="/bg/home_bg.svg"
                 alt="Home"
                 fill
                 priority
@@ -62,7 +62,7 @@ export default function HomePage() {
                 <div className="fixed inset-0 transition-opacity duration-300 ease-in-out animate-fadeIn">
                     <div className="absolute inset-0">
                         <Image
-                            src="/overlay_bg.svg"
+                            src="/bg/overlay_bg.svg"
                             alt="Overlay Background"
                             fill
                             priority

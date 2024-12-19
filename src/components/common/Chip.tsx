@@ -70,7 +70,7 @@ export const Chip = ({
           {isPlaying ? stopText : playText}
         </span>
         <Image
-          src={isPlaying ? '/volumeOff.svg' : '/volume.svg'}
+          src={isPlaying ? '/ui/volumeOff.svg' : '/ui/volume.svg'}
           alt='Volume'
           width={size === 'small' ? 16 : 20}
           height={size === 'small' ? 16 : 20}

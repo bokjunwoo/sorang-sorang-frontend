@@ -12,7 +12,7 @@ export default function ExploreNav() {
           className='flex-shrink-0 cursor-pointer'
           onClick={() => router.push('/mypage')}>
         <Image
-          src='/left_arrow.svg'
+          src='/ui/left_arrow.svg'
           alt='Back Arrow'
           width={24} // 아이콘의 너비를 24px로 설정
           height={24} // 아이콘의 높이를 24px로 설정

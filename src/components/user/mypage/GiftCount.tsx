@@ -16,7 +16,7 @@ export default function GiftCount() {
 
   return (
     <div className='flex items-center justify-centerw-16 bg-black/50 py-[1px] px-2 font-pretendard text-pretendard-s text-center text-white font-bold rounded-full gap-1'>
-      <Image src={'/pocket2.svg'} alt={'보자기'} width={20} height={20} />
+      <Image src={'/ui/pocket2.svg'} alt={'보자기'} width={20} height={20} />
       {giftItems.length} / 12
     </div>
   );

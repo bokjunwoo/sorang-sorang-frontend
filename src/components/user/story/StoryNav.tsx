@@ -36,7 +36,7 @@ export default function StoryNav({ storyId }: { storyId: number }) {
               onClick={() => router.push('/explore')}
           >
             <Image
-              src='/left_arrow_b.svg'
+              src='/ui/left_arrow_b.svg'
               alt='Back Arrow'
               width={24} // 아이콘의 너비를 24px로 설정
               height={24} // 아이콘의 높이를 24px로 설정

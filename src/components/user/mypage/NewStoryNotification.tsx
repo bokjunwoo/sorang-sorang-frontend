@@ -51,7 +51,7 @@ export default function NewStoryNotification() {
 
         <div className='absolute right-4 top-0'>
           <Link href={'/explore'}>
-            <Image src={'/pocket.svg'} alt={'보따리열기'} width={80} height={80}/>
+            <Image src={'/ui/pocket.svg'} alt={'보따리열기'} width={80} height={80}/>
           </Link>
         </div>
       </div>
