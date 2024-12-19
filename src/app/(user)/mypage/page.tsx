@@ -14,9 +14,6 @@ export default function page() {
         <div className='relative flex items-center justify-center'>
           {/* 이름 텍스트 (이미지 위에 절대 위치) */}
           <Name />
-
-          {/* 이름 이미지 */}
-          <Image src={'/name.svg'} alt={'이름'} width={120} height={120} />
         </div>
 
         {/* 우측 부분: 숫자 */}

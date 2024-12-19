@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from "next/image";
 
 export default function Count() {
   const [giftItems, setGiftItems] = useState<string[]>([]);
@@ -14,7 +15,8 @@ export default function Count() {
   }, []);
 
   return (
-    <div className='flex items-center justify-centerw-16 py-1.5 px-4 font-pretendard text-pretendard-m text-center text-brand-black font-bold rounded-2xl'>
+    <div className='flex items-center justify-centerw-16 bg-black/50 py-0.5 px-2 font-pretendard text-pretendard-s text-center text-white font-bold rounded-full gap-1'>
+      <Image src={'/pocket2.svg'} alt={'보자기'} width={20} height={20} />
       {giftItems.length} / 12
     </div>
   );
