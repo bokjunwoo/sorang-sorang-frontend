@@ -24,3 +24,14 @@ export type StoryInfo = {
     answer: number;
     audioUrl: string;
 };
+
+export interface StoryState {
+    completedStories: CompletedStory[];
+    addCompletedStory: (story: CompletedStory) => void;
+    resetCompletedStories: () => void;
+}
+
+export interface CompletedStory {
+    id: number;
+    location: string;
+}

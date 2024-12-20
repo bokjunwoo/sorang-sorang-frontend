@@ -40,7 +40,10 @@ export default function NewStoryNotification() {
       <div className='relative px-8 mt-12'>
         <div className='flex justify-between items-start gap-8'>
           {hasStory && masterInfo && (
-              <Link href={`/story/${masterInfo.id}`} passHref>
+              <Link
+                  href={`/story/${masterInfo.id}`}
+                  className='cursor-pointer z-20 block' // z-index와 block 추가
+              >
                 <div className='font-hakgyo text-hakgyo-m text-brand-black bg-white p-4 rounded-2xl'>
                   <div>{masterInfo.name} {masterInfo.gender}의</div>
                   <div>새로운 이야기가 도착했어요!</div>
@@ -49,9 +52,17 @@ export default function NewStoryNotification() {
           )}
         </div>
 
-        <div className='absolute right-4 top-0'>
-          <Link href={'/explore'}>
-            <Image src={'/ui/pocket.svg'} alt={'보따리열기'} width={80} height={80}/>
+        <div className='absolute right-4 top-0 z-10'>
+          <Link
+              href={'/explore'}
+              className="block"
+          >
+            <Image
+                src={'/ui/pocket.svg'}
+                alt={'보따리열기'}
+                width={80}
+                height={80}
+            />
           </Link>
         </div>
       </div>

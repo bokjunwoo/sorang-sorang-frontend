@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import FullStory from './FullStory';
 import StoryButton from './StoryButton';
 import StoryNav from './StoryNav';
@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation';
 import { useExplore } from '@/lib/api/user';
 
 import {StoryInfo} from "@/types/story";
+import {useStoryStore} from "@/store/story";
 
 export default function StoryContent() {
   const { id } = useParams();
@@ -18,6 +19,16 @@ export default function StoryContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const addCompletedStory = useStoryStore((state) => state.addCompletedStory);
+
+  useEffect(() => {
+      if (story?.id && story?.region) {
+          addCompletedStory({
+            id: story.id,
+            location: story.region
+          });
+      }
+  }, [story, addCompletedStory]);
 
   return (
     <div className='w-full h-screen bg-brand-bg1 flex flex-col justify-center'>
