@@ -41,7 +41,6 @@ export default function Carousel({
       mousewheel={true}
       modules={[Mousewheel]}
       grabCursor={true}
-      className={`w-full h-[${[height]}]`}
       onSlideChange={onChange}
     >
       {data?.map((item) => (
