@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -21,101 +21,89 @@ export default function QuestBadgeCollection() {
       icon: '/items/제주시.svg',
       width: 48,
       height: 48,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[120px] translate-x-[50px]',
+      className: 'absolute top-[calc(50%-120px)] left-[calc(50%+50px)]', // 부모 기준으로 배치
     },
     {
       name: '구좌읍',
       icon: '/items/구좌읍.svg',
       width: 60,
       height: 60,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[-260px] translate-x-[-150px]',
+      className: 'absolute top-[calc(50%+260px)] left-[calc(50%-150px)]',
     },
     {
       name: '남원읍',
       icon: '/items/남원읍.svg',
       width: 60,
       height: 60,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[60px] translate-x-[50px]',
+      className: 'absolute top-[calc(50%-60px)] left-[calc(50%+50px)]',
     },
     {
       name: '대정읍',
       icon: '/items/대정읍.svg',
       width: 48,
       height: 48,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[110px] translate-x-[-50px]',
+      className: 'absolute top-[calc(50%-120px)] left-[calc(50%-50px)]',
     },
     {
       name: '서귀포시',
       icon: '/items/서귀포시.svg',
       width: 180,
       height: 180,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[180px] translate-x-[-85px]',
+      className: 'absolute top-[calc(50%-185px)] left-[calc(50%-85px)]',
     },
     {
       name: '안덕면',
       icon: '/items/안덕면.svg',
       width: 60,
       height: 60,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[20px] translate-x-[-125px]',
+      className: 'absolute top-[calc(50%-30px)] left-[calc(50%-145px)]',
     },
     {
       name: '애월읍',
       icon: '/items/애월읍.svg',
       width: 80,
       height: 80,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[-250px] translate-x-[50px]',
+      className: 'absolute top-[calc(50%+260px)] left-[calc(50%+80px)]',
     },
     {
       name: '조천읍',
       icon: '/items/조천읍.svg',
-      width: 60,
-      height: 60,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[130px] translate-x-[-125px]',
+      width: 70,
+      height: 70,
+      className: 'absolute top-[calc(50%-140px)] left-[calc(50%-135px)]',
     },
     {
       name: '성산읍',
       icon: '/items/성산읍.svg',
       width: 60,
       height: 60,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[100px] translate-x-[-155px]',
+      className: 'absolute top-[calc(50%-110px)] left-[calc(50%-175px)]',
     },
     {
       name: '표선면',
       icon: '/items/표선면.svg',
       width: 60,
       height: 60,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[40px] translate-x-[100px]',
+      className: 'absolute top-[calc(50%-40px)] left-[calc(50%+100px)]',
     },
     {
       name: '한경면',
       icon: '/items/한경면.svg',
       width: 80,
       height: 80,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[150px] translate-x-[100px]',
+      className: 'absolute top-[calc(50%-130px)] left-[calc(50%+120px)]',
     },
     {
       name: '한림읍',
       icon: '/items/한림읍.svg',
       width: 48,
       height: 48,
-      className:
-        'absolute left-1/2 transform top-1/2 -translate-y-[0px] translate-x-[60px]',
+      className: 'absolute top-[calc(50%+20px)] left-[calc(50%+60px)]',
     },
   ];
 
   return (
-    <div className="relative w-full h-screen -mt-[200px]">
+    <div className='w-full'>
       {regions.map((region) => {
         // giftItems 배열에 해당 지역 이름이 포함되어 있으면 그 지역 아이콘을 렌더링
         if (giftItems.includes(region.name)) {
