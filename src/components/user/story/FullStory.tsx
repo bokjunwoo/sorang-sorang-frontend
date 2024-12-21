@@ -11,7 +11,7 @@ export default function FullStory() {
 
   return (
     <div>
-      <div className='mb-[20px] font-hakgyo text-hakgyo-l text-brand-black text-center'>
+      <div className='mb-[10px] font-hakgyo text-hakgyo-l text-brand-black text-center'>
         {story?.title}
       </div>
 
