@@ -6,7 +6,7 @@ import ExploreNav from '@/components/user/explore/ExploreNav';
 import { useExplore } from '@/lib/api/user';
 import Link from 'next/link';
 import { useState } from 'react';
-import {useStoryStore} from "@/store/story";
+import { useStoryStore } from '@/store/story';
 
 export default function ExplorePage() {
   const { data } = useExplore();
@@ -22,26 +22,25 @@ export default function ExplorePage() {
   if (!data) return null;
 
   const currentStoryId = currentIndex + 1;
-  const isStoryCompleted = completedStories.some(story => story.id === currentStoryId);
+  const isStoryCompleted = completedStories.some(
+    (story) => story.id === currentStoryId
+  );
   const buttonText = isStoryCompleted ? '다시 듣기' : '이야기보따리 듣기';
 
   return (
-    <div className='mt-[44px] relative flex flex-col items-center justify-center min-h-screen'>
+    <div className='w-full flex flex-col items-center justify-center'>
       {/* ExploreNav 컴포넌트 */}
       <ExploreNav />
 
       {/* Carousel 컴포넌트 - 중앙 정렬 */}
-      <div className='flex flex-col items-center justify-center w-full h-full'>
+      <div className='flex flex-grow items-center justify-center w-full mt-11'>
         <Carousel showSideBox={true} size='lg' onChange={handleSlideChange} />
       </div>
 
       {/* "이야기보따리 듣기" 버튼 */}
       <Link href={`/story/${currentStoryId}`}>
-        <div className='absolute pb-[40px] bottom-10 w-full flex justify-center'>
-          <Button
-            variant='default'
-            className='mb-10 z-10 right-48 top-6 text-hakgyo-l'
-          >
+        <div className='absolute bottom-10 left-0 right-0 px-4 text-hakgyo-l'>
+          <Button variant='default' className='w-full'>
             {buttonText}
           </Button>
         </div>
