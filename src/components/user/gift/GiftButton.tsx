@@ -39,15 +39,19 @@ export default function GiftButton() {
   }
 
   const hasGift = localStorage.getItem('gift')
-      ? JSON.parse(localStorage.getItem('gift')!).includes(decodeURIComponent(location as string))
-      : false;
+    ? JSON.parse(localStorage.getItem('gift')!).includes(
+        decodeURIComponent(location as string)
+      )
+    : false;
 
   return (
-    <Button
-      className='absolute text-hakgyo-l bottom-4 left-1/2 transform -translate-x-1/2 mb-10'
-      onClick={handleButtonClick} // 버튼 클릭 시 handleButtonClick 실행
-    >
-      {hasGift ? '이미 선물을 받았어요!' : '잘 들었어요'}
-    </Button>
+    <div className='absolute bottom-10 left-0 right-0 text-hakgyo-l'>
+      <Button
+        className='w-full'
+        onClick={handleButtonClick} // 버튼 클릭 시 handleButtonClick 실행
+      >
+        {hasGift ? '이미 선물을 받았어요!' : '잘 들었어요'}
+      </Button>
+    </div>
   );
 }
