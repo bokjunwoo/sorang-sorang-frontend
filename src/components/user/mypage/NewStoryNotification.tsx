@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {getLatestStory} from "@/lib/api/story";
+import { getLatestStory } from '@/lib/api/story';
 
 export default function NewStoryNotification() {
   const [hasStory, setHasStory] = useState(false);
@@ -24,7 +24,7 @@ export default function NewStoryNotification() {
           setMasterInfo({
             id: data.id,
             name: data.name,
-            gender: data.gender
+            gender: data.gender,
           });
         }
       } catch (error) {
@@ -37,34 +37,41 @@ export default function NewStoryNotification() {
 
   // 스토리가 있고 masterInfo가 있을 때만 알림 표시
   return (
-      <div className='relative px-8 mt-12'>
-        <div className='flex justify-between items-start gap-8'>
-          {hasStory && masterInfo && (
-              <Link
-                  href={`/story/${masterInfo.id}`}
-                  className='cursor-pointer z-20 block' // z-index와 block 추가
-              >
-                <div className='font-hakgyo text-hakgyo-m text-brand-black bg-white p-4 rounded-2xl'>
-                  <div>{masterInfo.name} {masterInfo.gender}의</div>
-                  <div>새로운 이야기가 도착했어요!</div>
-                </div>
-              </Link>
-          )}
-        </div>
+    <div className='w-full flex mt-6'>
+      {hasStory && masterInfo && (
+        <Link
+          href={`/story/${masterInfo.id}`}
+          passHref
+          className='cursor-pointer z-20 block w-full mr-4'
+        >
+          <div className='font-hakgyo text-hakgyo-m text-brand-black bg-white px-4 rounded-2xl py-4'>
+            <div>
+              {masterInfo.name} {masterInfo.gender}의
+            </div>
+            <div>새로운 이야기가 도착했어요!</div>
+          </div>
+        </Link>
+      )}
 
-        <div className='absolute right-4 top-0 z-10'>
-          <Link
-              href={'/explore'}
-              className="block"
-          >
-            <Image
-                src={'/ui/pocket.svg'}
-                alt={'보따리열기'}
-                width={80}
-                height={80}
-            />
-          </Link>
-        </div>
+      <div className='flex flex-col mt-1'>
+        <Link href={'/explore'} className='cursor-pointer' passHref>
+          <Image
+            src='/ui/pocket.svg'
+            alt='보따리열기'
+            width={100}
+            height={100}
+          />
+        </Link>
+
+        <Link href={'/mypage'}>
+          <Image
+            src='/ui/collection.svg'
+            alt='도감열기'
+            width={100}
+            height={100}
+          />
+        </Link>
       </div>
+    </div>
   );
 }

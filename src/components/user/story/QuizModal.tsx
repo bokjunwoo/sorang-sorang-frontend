@@ -30,7 +30,7 @@ export default function QuizModal({ onClose }: { onClose: () => void }) {
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
       {/* 모달 내용 */}
-      <div className='bg-brand-bg1 px-6 py-10 rounded-lg w-11/12 max-w-lg relative'>
+      <div className='bg-brand-bg1 px-6 py-10 rounded-lg w-96 mx-4 max-w-lg relative'>
         {/* X 버튼 */}
         <button
           onClick={onClose}
@@ -82,9 +82,9 @@ export default function QuizModal({ onClose }: { onClose: () => void }) {
 
       {/* 버튼을 고정하여 위치가 밀리지 않도록 처리 */}
       {isAnswered && isCorrect && (
-        <div className='absolute bottom-12 left-1/2 transform -translate-x-1/2'>
+        <div className='absolute bottom-10 left-1/2 transform -translate-x-1/2'>
           <Link href={`/gift/${item.region}`}>
-            <Button className='mt-10 text-hakgyo-l'>보따리 열기</Button>
+            <Button>보따리 열기</Button>
           </Link>
         </div>
       )}

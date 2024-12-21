@@ -1,16 +1,17 @@
-'use client'
+'use client';
 
 import Image from 'next/image';
-import {useRouter} from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 export default function ExploreNav() {
   const router = useRouter();
   return (
-    <nav className='absolute w-full h-16 flex items-center px-4 top-0'>
+    <nav className='w-full flex items-center px-4 mt-6'>
       {/* 좌측 < 아이콘 */}
       <div
-          className='flex-shrink-0 cursor-pointer'
-          onClick={() => router.push('/mypage')}>
+        className='flex-shrink-0 cursor-pointer'
+        onClick={() => router.push('/mypage')}
+      >
         <Image
           src='/ui/left_arrow.svg'
           alt='Back Arrow'
