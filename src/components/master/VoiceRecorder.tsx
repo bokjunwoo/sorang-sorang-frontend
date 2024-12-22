@@ -252,7 +252,7 @@ export default function VoiceRecorder() {
                 }`}
               >
                 <div
-                  className={`absolute w-[90px] h-[90px] rounded-full flex flex-col items-center justify-center transition-all ${
+                  className={`text-white absolute w-[90px] h-[90px] rounded-full flex flex-col items-center justify-center transition-all ${
                     isRecording ? 'bg-brand-primary1' : 'bg-brand-primary2'
                   }`}
                 >
